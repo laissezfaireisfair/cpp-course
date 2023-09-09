@@ -5,11 +5,11 @@ namespace TextAnalyser {
     public:
         explicit WordStats(std::string &word, int appearances);
 
-        [[nodiscard]] const std::string &GetWord() const;
+        const std::string &GetWord() const;
 
-        [[nodiscard]] int GetAppearances() const;
+        int GetAppearances() const;
 
-        [[nodiscard]] int GetPercentage(int totalWords) const;
+        int GetPercentage(int totalWords) const;
 
     private:
         std::string word;

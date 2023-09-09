@@ -11,9 +11,9 @@ namespace TextAnalyser {
 
         void AddLine(std::string &line);
 
-        [[nodiscard]] std::vector<TextAnalyser::WordStats> GetStats() const;
+        std::vector<TextAnalyser::WordStats> GetStats() const;
 
-        [[nodiscard]] int GetTotalWords() const;
+        int GetTotalWords() const;
 
     private:
         int totalWords;
