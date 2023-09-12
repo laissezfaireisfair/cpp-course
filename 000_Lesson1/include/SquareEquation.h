@@ -10,9 +10,9 @@ namespace Equations
     public:
         SquareEquation(double a, double b, double c);
 
-        [[nodiscard]] std::vector<double> GetSolution() const;
+        std::vector<double> GetSolution() const;
 
-        [[nodiscard]] std::string ToString() const;
+        std::string ToString() const;
 
     private:
         double a;
