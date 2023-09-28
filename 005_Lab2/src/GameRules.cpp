@@ -13,28 +13,23 @@ GameRules::GameRules(int rounds_count,
   defect_reward_ = defect_reward;
 }
 
-int GameRules::RoundsCount() const
-{
+int GameRules::RoundsCount() const {
   return rounds_count_;
 }
 
-int GameRules::CooperationReward() const
-{
+int GameRules::CooperationReward() const {
   return cooperation_reward_;
 }
 
-int GameRules::CooperationFine() const
-{
+int GameRules::CooperationFine() const {
   return cooperation_fine_;
 }
 
-int GameRules::DefectReward() const
-{
+int GameRules::DefectReward() const {
   return defect_reward_;
 }
 
-int GameRules::DefectFine() const
-{
+int GameRules::DefectFine() const {
   return defect_fine_;
 }
 }
