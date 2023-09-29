@@ -3,7 +3,7 @@
 #include "IStrategy.h"
 namespace PrisonerSimulator {
 class KindRepeaterStrategy : public IStrategy {
-  Decision MakeDecision(IPlayerStatusFacade* playerStatus, int rivalId) override;
+  Decision MakeDecision(IPlayerStrategyFacade* playerStatus, int rivalId) override;
 
  public:
   KindRepeaterStrategy();

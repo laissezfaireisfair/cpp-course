@@ -4,7 +4,7 @@
 #include "Decision.h"
 
 namespace PrisonerSimulator {
-class IPlayerStatusFacade {
+class IPlayerStrategyFacade {
  public:
   virtual int GetScore() = 0;
 
@@ -12,6 +12,6 @@ class IPlayerStatusFacade {
 
   virtual const std::vector<Decision>& GetRivalDecisionsById(int rivalId) = 0;
 
-  virtual ~IPlayerStatusFacade() = default;
+  virtual ~IPlayerStrategyFacade() = default;
 };
 }

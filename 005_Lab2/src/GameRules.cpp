@@ -5,12 +5,12 @@ GameRules::GameRules(int rounds_count,
                      int cooperation_reward,
                      int defect_fine,
                      int cooperation_fine,
-                     int defect_reward) {
-  rounds_count_ = rounds_count;
-  cooperation_reward_ = cooperation_reward;
-  cooperation_fine_ = cooperation_fine;
-  defect_fine_ = defect_fine;
-  defect_reward_ = defect_reward;
+                     int defect_reward) :
+    rounds_count_(rounds_count),
+    cooperation_reward_(cooperation_reward),
+    cooperation_fine_(cooperation_fine),
+    defect_fine_(defect_fine),
+    defect_reward_(defect_reward) {
 }
 
 int GameRules::RoundsCount() const {

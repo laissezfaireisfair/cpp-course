@@ -3,22 +3,23 @@
 #include <map>
 #include <vector>
 #include <memory>
-#include "IPlayerStatusFacade.h"
+#include "IPlayerStrategyFacade.h"
 #include "IPlayerPlayFacade.h"
 #include "IStrategy.h"
 
 namespace PrisonerSimulator {
 template<class T> using uptr = std::unique_ptr<T>;
 
-class Player : public IPlayerStatusFacade, public IPlayerPlayFacade {
+class Player : public IPlayerStrategyFacade, public IPlayerPlayFacade {
   int id_;
+  std::string name_;
   std::map<int, std::vector<Decision>> my_decisions_by_rival_id_;
   std::map<int, std::vector<Decision>> rival_decisions_by_id_;
   int score_;
   uptr<IStrategy> strategy_;
 
  public:
-  Player(int id, uptr<IStrategy>&& strategy);
+  Player(int id, std::string && name, uptr<IStrategy>&& strategy);
 
   Player(Player&& player) noexcept;
 
@@ -37,5 +38,9 @@ class Player : public IPlayerStatusFacade, public IPlayerPlayFacade {
   const std::vector<Decision>& GetMyDecisionsByRivalId(int rivalId) override;
 
   const std::vector<Decision>& GetRivalDecisionsById(int rivalId) override;
+
+  std::string GetName() override;
+
+  Decision LastDecision(int rivalId) override;
 };
 }

@@ -10,7 +10,7 @@ add_executable(005_Lab2 src/main.cpp
         src/GameRules.cpp
         include/IStrategy.h
         include/Decision.h
-        include/IPlayerStatusFacade.h
+        include/IPlayerStrategyFacade.h
         include/IPlayerPlayFacade.h
         include/Player.h
         src/Player.cpp
@@ -25,4 +25,10 @@ add_executable(005_Lab2 src/main.cpp
         include/InitializationGameState.h
         src/InitializationGameState.cpp
         include/EndGameState.h
-        src/EndGameState.cpp)
+        src/EndGameState.cpp
+        include/Configurator.h
+        src/Configurator.cpp
+        include/ProcessGameState.h
+        src/ProcessGameState.cpp
+        include/DetailedGameState.h
+        src/DetailedGameState.cpp)

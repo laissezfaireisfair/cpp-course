@@ -13,6 +13,6 @@ class PlayerFactory {
 
   ~PlayerFactory();
 
-  uptr<Player> CreatePlayer(std::string& strategy);
+  uptr<Player> CreatePlayer(std::string const & strategy);
 };
 }

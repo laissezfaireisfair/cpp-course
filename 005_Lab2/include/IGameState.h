@@ -15,6 +15,6 @@ class IGameState {
   /// Returns true if game ended
   virtual bool doStage() = 0;
 
-  virtual ~IGameState() = default;
+  virtual ~IGameState() noexcept = default;
 };
 }

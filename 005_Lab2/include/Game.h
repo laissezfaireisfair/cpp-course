@@ -7,10 +7,11 @@
 
 namespace PrisonerSimulator {
 template<class T> using uptr = std::unique_ptr<T>;
+template<class T> using sptr = std::shared_ptr<T>;
 
 class Game {
   uptr<GameRules> game_rules_;
-  std::vector<uptr<IPlayerPlayFacade>> players;
+  std::vector<sptr<IPlayerPlayFacade>> players_;
   uptr<IGameState> game_state_;
  public:
   Game();
@@ -22,6 +23,10 @@ class Game {
   void SetGameRules(uptr<GameRules> && game_rules);
 
   void AddPlayer(uptr<IPlayerPlayFacade> && player);
+
+  std::vector<sptr<IPlayerPlayFacade>> & GetPlayers();
+
+  uptr<GameRules>& GetGameRules();
 
   void Run();
 };
