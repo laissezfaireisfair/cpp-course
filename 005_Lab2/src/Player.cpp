@@ -5,8 +5,9 @@ Player::Player(int id, std::string&& name, uptr<IStrategy>&& strategy) :
     id_(id),
     name_(std::move(name)),
     score_(0),
-    my_decisions_by_rival_id_(std::map<int, std::vector<Decision>>()),
-    rival_decisions_by_id_(std::map<int, std::vector<Decision>>()),
+    my_decisions_by_rival_id_(),
+    rival_decisions_by_id_(),
+    last_delta_by_id(),
     strategy_(std::move(strategy)) {
 }
 
@@ -33,8 +34,10 @@ void Player::StoreDecision(int rivalId, PrisonerSimulator::Decision decision) {
     rival_decisions_by_id_[rivalId] = std::vector<Decision>{decision};
 }
 
-void Player::UpdateScore(int delta) {
+void Player::UpdateScore(int delta, int rivalId) {
   score_ += delta;
+
+  last_delta_by_id[rivalId] = delta;
 }
 
 int Player::GetId() {
@@ -43,6 +46,13 @@ int Player::GetId() {
 
 int Player::GetScore() {
   return score_;
+}
+
+int Player::GetLastDelta(int rivalId) {
+  if (!last_delta_by_id.contains(rivalId))
+    return 0;
+
+  return last_delta_by_id[rivalId];
 }
 
 const std::vector<Decision>& Player::GetMyDecisionsByRivalId(int rivalId) {
@@ -63,7 +73,7 @@ std::string Player::GetName() {
   return name_;
 }
 
-Decision Player::LastDecision(int rivalId) {
+Decision Player::GetLastDecision(int rivalId) {
   return my_decisions_by_rival_id_[rivalId].back();
 }
 }

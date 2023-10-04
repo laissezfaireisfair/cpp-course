@@ -9,38 +9,36 @@ ProcessGameState::ProcessGameState(PrisonerSimulator::Game* game) :
     current_rivals_(std::vector<wptr<IPlayerPlayFacade>>()) {}
 
 bool ProcessGameState::RunCompetitionStep() {
-  auto player = current_rivals_[player_idx_];
-  auto rival = current_rivals_[rival_idx_];
+  auto player = current_rivals_[player_idx_].lock();
+  auto rival = current_rivals_[rival_idx_].lock();
 
-  auto playerDecision = player.lock()->MakeDecision(rival.lock()->GetId());
-  auto rivalDecision = rival.lock()->MakeDecision(player.lock()->GetId());
+  int rival_id = rival->GetId();
+  int player_id = player->GetId();
 
-  player.lock()->StoreDecision(rival.lock()->GetId(), rivalDecision);
-  rival.lock()->StoreDecision(player.lock()->GetId(), playerDecision);
+  auto playerDecision = player->MakeDecision(rival_id);
+  auto rivalDecision = rival->MakeDecision(player_id);
+
+  player->StoreDecision(rival_id, rivalDecision);
+  rival->StoreDecision(player_id, playerDecision);
 
   if (playerDecision == Decision::Cooperate && rivalDecision == Decision::Cooperate) {
-    player.lock()->UpdateScore(game_->GetGameRules()->CooperationReward());
-    rival.lock()->UpdateScore(game_->GetGameRules()->CooperationReward());
+    player->UpdateScore(game_->GetGameRules()->CooperationReward(), rival_id);
+    rival->UpdateScore(game_->GetGameRules()->CooperationReward(), player_id);
   }
 
   else if (playerDecision == Decision::Defect && rivalDecision == Decision::Defect) {
-    player.lock()->UpdateScore(-game_->GetGameRules()->DefectFine());
-    rival.lock()->UpdateScore(-game_->GetGameRules()->DefectFine());
+    player->UpdateScore(-game_->GetGameRules()->DefectFine(), rival_id);
+    rival->UpdateScore(-game_->GetGameRules()->DefectFine(), player_id);
   }
 
   else if (playerDecision == Decision::Cooperate && rivalDecision == Decision::Defect) {
-    player.lock()->UpdateScore(-game_->GetGameRules()->CooperationFine());
-    rival.lock()->UpdateScore(game_->GetGameRules()->DefectReward());
+    player->UpdateScore(-game_->GetGameRules()->CooperationFine(), rival_id);
+    rival->UpdateScore(game_->GetGameRules()->DefectReward(), player_id);
   }
 
   else if (playerDecision == Decision::Defect && rivalDecision == Decision::Cooperate) {
-    player.lock()->UpdateScore(game_->GetGameRules()->DefectReward());
-    rival.lock()->UpdateScore(-game_->GetGameRules()->CooperationFine());
+    player->UpdateScore(game_->GetGameRules()->DefectReward(), rival_id);
+    rival->UpdateScore(-game_->GetGameRules()->CooperationFine(), player_id);
   }
-
-  player_idx_ += 1;
-  rival_idx_ = (rival_idx_ + 1) % current_rivals_.size();
-
-  return player_idx_ < current_rivals_.size();
 }
 }

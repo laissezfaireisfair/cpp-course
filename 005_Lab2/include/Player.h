@@ -15,6 +15,7 @@ class Player : public IPlayerStrategyFacade, public IPlayerPlayFacade {
   std::string name_;
   std::map<int, std::vector<Decision>> my_decisions_by_rival_id_;
   std::map<int, std::vector<Decision>> rival_decisions_by_id_;
+  std::map<int, int> last_delta_by_id;
   int score_;
   uptr<IStrategy> strategy_;
 
@@ -29,11 +30,13 @@ class Player : public IPlayerStrategyFacade, public IPlayerPlayFacade {
 
   void StoreDecision(int rivalId, Decision decision) override;
 
-  void UpdateScore(int delta) override;
+  void UpdateScore(int delta, int rivalId) override;
 
   int GetId() override;
 
   int GetScore() override;
+
+  int GetLastDelta(int rivalId) override;
 
   const std::vector<Decision>& GetMyDecisionsByRivalId(int rivalId) override;
 
@@ -41,6 +44,6 @@ class Player : public IPlayerStrategyFacade, public IPlayerPlayFacade {
 
   std::string GetName() override;
 
-  Decision LastDecision(int rivalId) override;
+  Decision GetLastDecision(int rivalId) override;
 };
 }

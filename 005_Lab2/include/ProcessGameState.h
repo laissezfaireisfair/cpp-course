@@ -16,7 +16,6 @@ class ProcessGameState : public IGameState {
 
   // Returns true if each one have finished a round with each one
   bool RunCompetitionStep();
-
  public:
   explicit ProcessGameState(Game* game);
 };
