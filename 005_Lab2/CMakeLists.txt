@@ -32,4 +32,6 @@ add_executable(005_Lab2 src/main.cpp
         src/ProcessGameState.cpp
         include/DetailedGameState.h
         src/DetailedGameState.cpp
-        src/Decision.cpp)
+        src/Decision.cpp
+        include/FastGameState.h
+        src/FastGameState.cpp)

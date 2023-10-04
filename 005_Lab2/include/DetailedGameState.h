@@ -2,8 +2,8 @@
 
 #include "ProcessGameState.h"
 
-namespace PrisonerSimulator{
-class DetailedGameState : public ProcessGameState{
+namespace PrisonerSimulator {
+class DetailedGameState : public ProcessGameState {
   int round;
 
   void PrintCompetitionStepInfo();
