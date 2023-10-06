@@ -6,6 +6,8 @@
 #include "Player/Strategies/KindDumbassStrategy.h"
 #include "Player/Strategies/EvilDumbassStrategy.h"
 #include "Player/Strategies/RandomStrategy.h"
+#include "Player/Strategies/KindForgivingRepeaterStrategy.h"
+#include "Player/Strategies/InconsistentStrategy.h"
 
 namespace PrisonerSimulator {
 PlayerFactory::PlayerFactory() : id_counter_(0) {
@@ -30,6 +32,12 @@ uptr<Player> PlayerFactory::CreatePlayer(std::string const& strategyName) {
 
   else if (strategyName == "RandomStrategy")
     strategy = std::make_unique<RandomStrategy>();
+
+  else if (strategyName == "KindForgivingRepeaterStrategy")
+    strategy = std::make_unique<KindForgivingRepeaterStrategy>();
+
+  else if (strategyName == "InconsistentStrategy")
+    strategy = std::make_unique<InconsistentStrategy>();
 
   else
     throw std::invalid_argument("Bad strategy name: " + strategyName);

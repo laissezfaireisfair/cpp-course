@@ -27,4 +27,8 @@ add_executable(005_Lab2 src/main.cpp
         include/Player/Strategies/EvilDumbassStrategy.h
         src/Player/Strategies/EvilDumbassStrategy.cpp
         include/Player/Strategies/RandomStrategy.h
-        src/Player/Strategies/RandomStrategy.cpp)
+        src/Player/Strategies/RandomStrategy.cpp
+        include/Player/Strategies/KindForgivingRepeaterStrategy.h
+        src/Player/Strategies/KindForgivingRepeaterStrategy.cpp
+        include/Player/Strategies/InconsistentStrategy.h
+        src/Player/Strategies/InconsistentStrategy.cpp)

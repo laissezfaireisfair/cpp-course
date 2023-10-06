@@ -2,12 +2,12 @@
 
 #include "IStrategy.h"
 namespace PrisonerSimulator {
-class EvilDumbassStrategy : public IStrategy {
+class InconsistentStrategy : public IStrategy {
  public:
   Decision MakeDecision(IPlayerStrategyFacade* playerStatus, int rivalId) override;
 
-  EvilDumbassStrategy();
+  InconsistentStrategy();
 
-  ~EvilDumbassStrategy() override;
+  ~InconsistentStrategy() override;
 };
 }

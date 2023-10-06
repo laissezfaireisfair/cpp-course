@@ -3,13 +3,15 @@ C++20
 
 Arguments example:
     ```--mode=tournament
-    --steps=5
+    --steps=10
     --matrix=matrix.txt
     KindRepeaterStrategy
     EvilRepeaterStrategy
     KindDumbassStrategy
     EvilDumbassStrategy
-    RandomStrategy```
+    RandomStrategy
+    KindForgivingRepeaterStrategy
+    InconsistentStrategy```
 
 Available modes: `fast`, `detailed`, `tournament`
 

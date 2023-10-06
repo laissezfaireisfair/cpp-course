@@ -45,7 +45,7 @@ bool DetailedGameState::doStage() {
   if (is_round_complete) {
     player_idx_ = 0;
     rival_idx_ = 1;
-    std::cout << "Round " << round << " finished." << std::endl;
+    std::cout << "Round " << round << " finished." << std::endl << std::endl;
     ++round;
 
     if (round == game_->GetGameRules()->RoundsCount()) {
