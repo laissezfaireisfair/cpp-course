@@ -5,7 +5,7 @@
 #include <memory>
 #include "IPlayerStrategyFacade.h"
 #include "IPlayerPlayFacade.h"
-#include "IStrategy.h"
+#include "Player/Strategies/IStrategy.h"
 
 namespace PrisonerSimulator {
 template<class T> using uptr = std::unique_ptr<T>;

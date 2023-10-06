@@ -1,7 +1,7 @@
 #include <iostream>
-#include "TournamentGameState.h"
-#include "Game.h"
-#include "EndGameState.h"
+#include "Game/State/TournamentGameState.h"
+#include "Game/Game.h"
+#include "Game/State/EndGameState.h"
 
 namespace PrisonerSimulator {
 TournamentGameState::TournamentGameState(Game* game) : ProcessGameState(game), round(0) {

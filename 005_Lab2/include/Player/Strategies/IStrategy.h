@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IPlayerStrategyFacade.h"
+#include "Player/IPlayerStrategyFacade.h"
 #include "Decision.h"
 
 namespace PrisonerSimulator {

@@ -1,4 +1,4 @@
-#include "KindRepeaterStrategy.h"
+#include "Player/Strategies/KindRepeaterStrategy.h"
 
 namespace PrisonerSimulator {
 KindRepeaterStrategy::KindRepeaterStrategy() = default;

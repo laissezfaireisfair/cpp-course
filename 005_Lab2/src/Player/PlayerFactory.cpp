@@ -1,7 +1,7 @@
 #include <stdexcept>
 
-#include "PlayerFactory.h"
-#include "KindRepeaterStrategy.h"
+#include "Player/PlayerFactory.h"
+#include "Player/Strategies/KindRepeaterStrategy.h"
 
 namespace PrisonerSimulator {
 PlayerFactory::PlayerFactory() : id_counter_(0) {

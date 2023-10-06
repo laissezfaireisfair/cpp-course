@@ -1,5 +1,5 @@
-#include "ProcessGameState.h"
-#include "Game.h"
+#include "Game/State/ProcessGameState.h"
+#include "Game/Game.h"
 
 namespace PrisonerSimulator {
 ProcessGameState::ProcessGameState(PrisonerSimulator::Game* game) :
@@ -8,7 +8,7 @@ ProcessGameState::ProcessGameState(PrisonerSimulator::Game* game) :
     rival_idx_(1),
     current_rivals_(std::vector<wptr<IPlayerPlayFacade>>()) {}
 
-bool ProcessGameState::RunCompetitionStep() {
+void ProcessGameState::RunCompetitionStep() {
   auto player = current_rivals_[player_idx_].lock();
   auto rival = current_rivals_[rival_idx_].lock();
 

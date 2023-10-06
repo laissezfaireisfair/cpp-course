@@ -2,7 +2,7 @@
 #include <ranges>
 #include <algorithm>
 #include <fstream>
-#include "Game.h"
+#include "Game/Game.h"
 #include "Configurator.h"
 
 void EjectNamesFromArguments(std::vector<std::string>& arguments) {

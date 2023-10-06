@@ -1,4 +1,4 @@
-#include "GameRules.h"
+#include "Game/GameRules.h"
 
 namespace PrisonerSimulator {
 GameRules::GameRules(int rounds_count,

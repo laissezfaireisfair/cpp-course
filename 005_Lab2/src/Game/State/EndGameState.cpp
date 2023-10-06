@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Game.h"
-#include "EndGameState.h"
+#include "Game/Game.h"
+#include "Game/State/EndGameState.h"
 
 namespace PrisonerSimulator{
 EndGameState::EndGameState(Game* game) : IGameState(game) {}

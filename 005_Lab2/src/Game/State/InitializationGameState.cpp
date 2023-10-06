@@ -1,11 +1,11 @@
-#include "Game.h"
-#include "InitializationGameState.h"
-#include "PlayerFactory.h"
-#include "EndGameState.h"
+#include "Game/Game.h"
+#include "Game/State/InitializationGameState.h"
+#include "Player/PlayerFactory.h"
+#include "Game/State/EndGameState.h"
 #include "Configurator.h"
-#include "DetailedGameState.h"
-#include "FastGameState.h"
-#include "TournamentGameState.h"
+#include "Game/State/DetailedGameState.h"
+#include "Game/State/FastGameState.h"
+#include "Game/State/TournamentGameState.h"
 
 namespace PrisonerSimulator{
 InitializationGameState::InitializationGameState(Game* game) : IGameState(game) {}

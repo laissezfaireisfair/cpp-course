@@ -2,8 +2,8 @@
 
 #include <vector>
 #include "GameRules.h"
-#include "IPlayerPlayFacade.h"
-#include "IGameState.h"
+#include "Player/IPlayerPlayFacade.h"
+#include "Game/State/IGameState.h"
 
 namespace PrisonerSimulator {
 template<class T> using uptr = std::unique_ptr<T>;

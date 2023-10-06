@@ -1,4 +1,4 @@
-#include <Player.h>
+#include "Player/Player.h"
 
 namespace PrisonerSimulator {
 Player::Player(int id, std::string&& name, uptr<IStrategy>&& strategy) :

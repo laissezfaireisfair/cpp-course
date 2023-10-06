@@ -1,7 +1,7 @@
 #include <iostream>
-#include "FastGameState.h"
-#include "Game.h"
-#include "EndGameState.h"
+#include "Game/State/FastGameState.h"
+#include "Game/Game.h"
+#include "Game/State/EndGameState.h"
 
 namespace PrisonerSimulator {
 FastGameState::FastGameState(Game* game) : ProcessGameState(game), round(0) {

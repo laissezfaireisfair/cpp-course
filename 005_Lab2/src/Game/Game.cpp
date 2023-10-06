@@ -1,5 +1,5 @@
-#include "Game.h"
-#include "InitializationGameState.h"
+#include "Game/Game.h"
+#include "Game/State/InitializationGameState.h"
 
 namespace PrisonerSimulator {
 Game::Game() :
