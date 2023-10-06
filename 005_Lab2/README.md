@@ -2,9 +2,7 @@
 
 C++20
 
-Arguments example:
-
-```--mode=tournament
+Arguments example: ```--mode=tournament
 --steps=10
 --matrix=matrix.txt
 KindRepeaterStrategy
