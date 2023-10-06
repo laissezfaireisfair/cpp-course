@@ -19,4 +19,12 @@ add_executable(005_Lab2 src/main.cpp
         src/Game/State/DetailedGameState.cpp
         src/Decision.cpp
         src/Game/State/FastGameState.cpp
-        src/Game/State/TournamentGameState.cpp)
+        src/Game/State/TournamentGameState.cpp
+        include/Player/Strategies/EvilRepeaterStrategy.h
+        src/Player/Strategies/EvilRepeaterStrategy.cpp
+        include/Player/Strategies/KindDumbassStrategy.h
+        src/Player/Strategies/KindDumbassStrategy.cpp
+        include/Player/Strategies/EvilDumbassStrategy.h
+        src/Player/Strategies/EvilDumbassStrategy.cpp
+        include/Player/Strategies/RandomStrategy.h
+        src/Player/Strategies/RandomStrategy.cpp)

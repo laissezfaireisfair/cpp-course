@@ -2,6 +2,10 @@
 
 #include "Player/PlayerFactory.h"
 #include "Player/Strategies/KindRepeaterStrategy.h"
+#include "Player/Strategies/EvilRepeaterStrategy.h"
+#include "Player/Strategies/KindDumbassStrategy.h"
+#include "Player/Strategies/EvilDumbassStrategy.h"
+#include "Player/Strategies/RandomStrategy.h"
 
 namespace PrisonerSimulator {
 PlayerFactory::PlayerFactory() : id_counter_(0) {
@@ -10,9 +14,23 @@ PlayerFactory::PlayerFactory() : id_counter_(0) {
 PlayerFactory::~PlayerFactory() = default;
 
 uptr<Player> PlayerFactory::CreatePlayer(std::string const& strategyName) {
-  uptr<KindRepeaterStrategy> strategy;
+  uptr<IStrategy> strategy;
+
   if (strategyName == "KindRepeaterStrategy")
     strategy = std::make_unique<KindRepeaterStrategy>();
+
+  else if (strategyName == "EvilRepeaterStrategy")
+    strategy = std::make_unique<EvilRepeaterStrategy>();
+
+  else if (strategyName == "KindDumbassStrategy")
+    strategy = std::make_unique<KindDumbassStrategy>();
+
+  else if (strategyName == "EvilDumbassStrategy")
+    strategy = std::make_unique<EvilDumbassStrategy>();
+
+  else if (strategyName == "RandomStrategy")
+    strategy = std::make_unique<RandomStrategy>();
+
   else
     throw std::invalid_argument("Bad strategy name: " + strategyName);
 

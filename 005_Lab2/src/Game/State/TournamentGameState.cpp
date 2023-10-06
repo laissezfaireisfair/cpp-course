@@ -34,10 +34,13 @@ void TournamentGameState::LoadNextPlayerGroup() {
 
 void TournamentGameState::PrintGroupCompetitionResult() {
   std::cout << "Group competition performed." << std::endl;
+
   for (auto& player : current_rivals_)
     std::cout << player.lock()->GetName() << " "
               << player.lock()->GetId()
               << " Score: " << player.lock()->GetScore() << std::endl;
+
+  std::cout << std::endl;
 }
 
 bool TournamentGameState::doStage() {
