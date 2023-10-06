@@ -4,7 +4,7 @@
 #include "Game/State/EndGameState.h"
 
 namespace PrisonerSimulator {
-DetailedGameState::DetailedGameState(Game* game) : ProcessGameState(game), round(0) {
+DetailedGameState::DetailedGameState(Game* game) : ProcessGameState(game), round_(0) {
   auto& all_players = game_->GetPlayers();
   current_rivals_ = std::vector<wptr<IPlayerPlayFacade>>();
   for (auto& player : all_players)
@@ -15,20 +15,20 @@ void DetailedGameState::PrintCompetitionStepInfo() {
   auto player = current_rivals_[player_idx_].lock();
   auto rival = current_rivals_[rival_idx_].lock();
 
-  int playerDelta = player->GetLastDelta(rival->GetId());
-  int rivalDelta = rival->GetLastDelta(player->GetId());
+  int player_delta = player->GetLastDelta(rival->GetId());
+  int rival_delta = rival->GetLastDelta(player->GetId());
 
   std::cout << "Step complete:" << std::endl;
 
   std::cout << "  " << player->GetName() << ": "
             << DecisionToString(player->GetLastDecision(rival->GetId()))
-            << ", Delta: " << playerDelta
+            << ", Delta: " << player_delta
             << " (Score = " << player->GetScore() << ")"
             << std::endl;
 
   std::cout << "  " << rival->GetName() << ": "
             << DecisionToString(rival->GetLastDecision(player->GetId()))
-            << ", Delta: " << rivalDelta
+            << ", Delta: " << rival_delta
             << " (Score = " << rival->GetScore() << ")"
             << std::endl;
 }
@@ -45,10 +45,12 @@ bool DetailedGameState::doStage() {
   if (is_round_complete) {
     player_idx_ = 0;
     rival_idx_ = 1;
-    std::cout << "Round " << round << " finished." << std::endl << std::endl;
-    ++round;
+    std::cout << "Round " << round_ << " finished." << std::endl << std::endl;
+    ++round_;
 
-    if (round == game_->GetGameRules()->RoundsCount()) {
+    bool is_game_finished = round_ == game_->GetGameRules()->RoundsCount();
+
+    if (is_game_finished) {
       auto endGameState = std::make_unique<EndGameState>(game_);
       game_->SwitchGameState(std::move(endGameState));
     }

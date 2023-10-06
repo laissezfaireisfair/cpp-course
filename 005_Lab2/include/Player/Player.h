@@ -20,7 +20,7 @@ class Player : public IPlayerStrategyFacade, public IPlayerPlayFacade {
   uptr<IStrategy> strategy_;
 
  public:
-  Player(int id, std::string && name, uptr<IStrategy>&& strategy);
+  Player(int id, std::string&& name, uptr<IStrategy>&& strategy);
 
   Player(Player&& player) noexcept;
 

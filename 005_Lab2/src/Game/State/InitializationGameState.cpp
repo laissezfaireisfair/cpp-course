@@ -7,7 +7,7 @@
 #include "Game/State/FastGameState.h"
 #include "Game/State/TournamentGameState.h"
 
-namespace PrisonerSimulator{
+namespace PrisonerSimulator {
 InitializationGameState::InitializationGameState(Game* game) : IGameState(game) {}
 
 InitializationGameState::~InitializationGameState() noexcept = default;
@@ -17,7 +17,7 @@ bool InitializationGameState::doStage() {
   auto& configurator = Configurator::Instance();
 
   auto& strategies = configurator.GetStrategyNames();
-  for (auto& strategy: strategies)
+  for (auto& strategy : strategies)
     game_->AddPlayer(player_factory->CreatePlayer(strategy));
 
   auto game_rules = std::make_unique<GameRules>(configurator.GetRoundsCount(),
@@ -27,22 +27,16 @@ bool InitializationGameState::doStage() {
                                                 configurator.GetDefectReward());
   game_->SetGameRules(std::move(game_rules));
 
-  if (configurator.GetModeName() == "detailed"){
+  if (configurator.GetModeName() == "detailed") {
     auto gameStage = std::make_unique<DetailedGameState>(game_);
     game_->SwitchGameState(std::move(gameStage));
-  }
-
-  else if (configurator.GetModeName() == "fast"){
+  } else if (configurator.GetModeName() == "fast") {
     auto gameStage = std::make_unique<FastGameState>(game_);
     game_->SwitchGameState(std::move(gameStage));
-  }
-
-  else if (configurator.GetModeName() == "tournament"){
+  } else if (configurator.GetModeName() == "tournament") {
     auto gameStage = std::make_unique<TournamentGameState>(game_);
     game_->SwitchGameState(std::move(gameStage));
-  }
-
-  else {
+  } else {
     auto endStage = std::make_unique<EndGameState>(game_);
     game_->SwitchGameState(std::move(endStage));
   }

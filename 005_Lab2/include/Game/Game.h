@@ -18,13 +18,13 @@ class Game {
 
   ~Game();
 
-  void SwitchGameState(uptr<IGameState> && game_state);
+  void SwitchGameState(uptr<IGameState>&& game_state);
 
-  void SetGameRules(uptr<GameRules> && game_rules);
+  void SetGameRules(uptr<GameRules>&& game_rules);
 
-  void AddPlayer(uptr<IPlayerPlayFacade> && player);
+  void AddPlayer(uptr<IPlayerPlayFacade>&& player);
 
-  std::vector<sptr<IPlayerPlayFacade>> & GetPlayers();
+  std::vector<sptr<IPlayerPlayFacade>>& GetPlayers();
 
   uptr<GameRules>& GetGameRules();
 

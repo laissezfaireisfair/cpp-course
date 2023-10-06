@@ -5,7 +5,7 @@
 namespace PrisonerSimulator {
 class TournamentGameState : public ProcessGameState {
   using PlayerPtr = std::weak_ptr<IPlayerPlayFacade>;
-  int round;
+  int round_;
   std::vector<std::vector<PlayerPtr>> waiting_groups_;
 
   void LoadNextPlayerGroup();

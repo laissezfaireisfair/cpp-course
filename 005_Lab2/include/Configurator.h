@@ -2,8 +2,8 @@
 
 #include <memory>
 #include <vector>
-namespace PrisonerSimulator{
-class Configurator{
+namespace PrisonerSimulator {
+class Configurator {
   std::vector<std::string> strategy_names_;
   std::string mode_name_;
   int rounds_count_;
@@ -15,15 +15,15 @@ class Configurator{
   Configurator();
 
  public:
-  static Configurator & Instance();
+  static Configurator& Instance();
 
-  std::vector<std::string> const & GetStrategyNames() const;
+  std::vector<std::string> const& GetStrategyNames() const;
 
-  void SetStrategyNames(std::vector<std::string> && strategy_names);
+  void SetStrategyNames(std::vector<std::string>&& strategy_names);
 
-  std::string const & GetModeName() const;
+  std::string const& GetModeName() const;
 
-  void SetModeName(std::string && mode_name);
+  void SetModeName(std::string&& mode_name);
 
   int GetRoundsCount() const;
 

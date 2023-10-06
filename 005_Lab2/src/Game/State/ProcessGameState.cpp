@@ -15,28 +15,22 @@ void ProcessGameState::RunCompetitionStep() {
   int rival_id = rival->GetId();
   int player_id = player->GetId();
 
-  auto playerDecision = player->MakeDecision(rival_id);
-  auto rivalDecision = rival->MakeDecision(player_id);
+  auto player_decision = player->MakeDecision(rival_id);
+  auto rival_decision = rival->MakeDecision(player_id);
 
-  player->StoreDecision(rival_id, rivalDecision);
-  rival->StoreDecision(player_id, playerDecision);
+  player->StoreDecision(rival_id, rival_decision);
+  rival->StoreDecision(player_id, player_decision);
 
-  if (playerDecision == Decision::Cooperate && rivalDecision == Decision::Cooperate) {
+  if (player_decision == Decision::Cooperate && rival_decision == Decision::Cooperate) {
     player->UpdateScore(game_->GetGameRules()->CooperationReward(), rival_id);
     rival->UpdateScore(game_->GetGameRules()->CooperationReward(), player_id);
-  }
-
-  else if (playerDecision == Decision::Defect && rivalDecision == Decision::Defect) {
+  } else if (player_decision == Decision::Defect && rival_decision == Decision::Defect) {
     player->UpdateScore(-game_->GetGameRules()->DefectFine(), rival_id);
     rival->UpdateScore(-game_->GetGameRules()->DefectFine(), player_id);
-  }
-
-  else if (playerDecision == Decision::Cooperate && rivalDecision == Decision::Defect) {
+  } else if (player_decision == Decision::Cooperate && rival_decision == Decision::Defect) {
     player->UpdateScore(-game_->GetGameRules()->CooperationFine(), rival_id);
     rival->UpdateScore(game_->GetGameRules()->DefectReward(), player_id);
-  }
-
-  else if (playerDecision == Decision::Defect && rivalDecision == Decision::Cooperate) {
+  } else if (player_decision == Decision::Defect && rival_decision == Decision::Cooperate) {
     player->UpdateScore(game_->GetGameRules()->DefectReward(), rival_id);
     rival->UpdateScore(-game_->GetGameRules()->CooperationFine(), player_id);
   }

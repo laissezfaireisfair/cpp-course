@@ -4,7 +4,7 @@
 #include "Game/State/EndGameState.h"
 
 namespace PrisonerSimulator {
-TournamentGameState::TournamentGameState(Game* game) : ProcessGameState(game), round(0) {
+TournamentGameState::TournamentGameState(Game* game) : ProcessGameState(game), round_(0) {
   auto& all_players = game_->GetPlayers();
 
   for (int i = 0; i < all_players.size() - 2; ++i) {
@@ -54,9 +54,9 @@ bool TournamentGameState::doStage() {
   if (is_round_complete) {
     player_idx_ = 0;
     rival_idx_ = 1;
-    ++round;
+    ++round_;
 
-    bool is_last_round = round == game_->GetGameRules()->RoundsCount();
+    bool is_last_round = round_ == game_->GetGameRules()->RoundsCount();
 
     if (is_last_round) {
       if (waiting_groups_.empty()) {
@@ -65,7 +65,7 @@ bool TournamentGameState::doStage() {
       } else {
         PrintGroupCompetitionResult();
         LoadNextPlayerGroup();
-        round = 0;
+        round_ = 0;
       }
     }
   }

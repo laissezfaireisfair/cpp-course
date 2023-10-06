@@ -4,7 +4,7 @@
 
 namespace PrisonerSimulator {
 class DetailedGameState : public ProcessGameState {
-  int round;
+  int round_;
 
   void PrintCompetitionStepInfo();
 

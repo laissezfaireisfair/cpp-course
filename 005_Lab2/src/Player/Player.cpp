@@ -16,8 +16,8 @@ Player::Player(Player&& player) noexcept = default;
 Player::~Player() = default;
 
 Decision Player::MakeDecision(int rivalId) {
-  auto playerStatus = static_cast<IPlayerStrategyFacade*>(this);
-  auto decision = strategy_->MakeDecision(playerStatus, rivalId);
+  auto player_status = static_cast<IPlayerStrategyFacade*>(this);
+  auto decision = strategy_->MakeDecision(player_status, rivalId);
 
   if (my_decisions_by_rival_id_.contains(rivalId))
     my_decisions_by_rival_id_[rivalId].push_back(decision);

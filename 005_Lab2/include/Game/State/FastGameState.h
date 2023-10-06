@@ -4,7 +4,7 @@
 
 namespace PrisonerSimulator {
 class FastGameState : public ProcessGameState {
-  int round;
+  int round_;
 
  public:
   explicit FastGameState(Game* game);

@@ -7,7 +7,8 @@ KindForgivingRepeaterStrategy::KindForgivingRepeaterStrategy() = default;
 
 KindForgivingRepeaterStrategy::~KindForgivingRepeaterStrategy() = default;
 
-Decision KindForgivingRepeaterStrategy::MakeDecision(PrisonerSimulator::IPlayerStrategyFacade* playerStatus, int rivalId) {
+Decision KindForgivingRepeaterStrategy::MakeDecision(PrisonerSimulator::IPlayerStrategyFacade* playerStatus,
+                                                     int rivalId) {
   int const kForgiveDiceThreshold = 5;
 
   static std::random_device random_device;
@@ -16,9 +17,11 @@ Decision KindForgivingRepeaterStrategy::MakeDecision(PrisonerSimulator::IPlayerS
 
   auto decision = KindRepeaterStrategy::MakeDecision(playerStatus, rivalId);
 
-  if (decision == Decision::Defect){
-    auto forgiveDiceResult = uniform_dist(engine);
-    if (forgiveDiceResult >= kForgiveDiceThreshold)
+  if (decision == Decision::Defect) {
+    auto dice_result = uniform_dist(engine);
+    bool should_forgive = dice_result >= kForgiveDiceThreshold;
+
+    if (should_forgive)
       return Decision::Cooperate;
   }
 

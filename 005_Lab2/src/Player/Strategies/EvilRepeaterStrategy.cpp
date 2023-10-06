@@ -6,10 +6,10 @@ EvilRepeaterStrategy::EvilRepeaterStrategy() = default;
 EvilRepeaterStrategy::~EvilRepeaterStrategy() = default;
 
 Decision EvilRepeaterStrategy::MakeDecision(PrisonerSimulator::IPlayerStrategyFacade* playerStatus, int rivalId) {
-  auto rivalDecisions = playerStatus->GetRivalDecisionsById(rivalId);
-  if (rivalDecisions.empty())
+  auto rival_decisions = playerStatus->GetRivalDecisionsById(rivalId);
+  if (rival_decisions.empty())
     return Decision::Defect;
 
-  return rivalDecisions.back();
+  return rival_decisions.back();
 }
 }

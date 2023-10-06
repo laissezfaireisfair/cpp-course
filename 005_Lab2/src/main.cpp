@@ -8,9 +8,9 @@
 void EjectNamesFromArguments(std::vector<std::string>& arguments) {
   auto is_name = [](std::string& s) { return !s.starts_with("--"); };
 
-  auto nameView = std::ranges::views::filter(arguments, is_name);
-  auto names = std::vector<std::string>(nameView.begin(),
-                                        nameView.end());
+  auto name_view = std::ranges::views::filter(arguments, is_name);
+  auto names = std::vector<std::string>(name_view.begin(),
+                                        name_view.end());
 
   PrisonerSimulator::Configurator::Instance().SetStrategyNames(std::move(names));
 }
@@ -62,6 +62,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Not enough arguments" << std::endl;
     return 1;
   }
+
   std::vector<std::string> arguments(argc - 1);
   for (int i = 1; i < argc; ++i)  // Skip exec path
     arguments[i - 1] = argv[i];
@@ -72,8 +73,7 @@ int main(int argc, char* argv[]) {
     EjectStepsFromArguments(arguments);
     EjectMatrixPathFromArguments(arguments);
   }
-  catch (std::exception& exception)
-  {
+  catch (std::exception& exception) {
     std::cout << "Getting input failed: " << exception.what();
     return 2;
   }

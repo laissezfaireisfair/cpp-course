@@ -4,7 +4,7 @@
 #include "Game/State/EndGameState.h"
 
 namespace PrisonerSimulator {
-FastGameState::FastGameState(Game* game) : ProcessGameState(game), round(0) {
+FastGameState::FastGameState(Game* game) : ProcessGameState(game), round_(0) {
   auto& all_players = game_->GetPlayers();
   current_rivals_ = std::vector<wptr<IPlayerPlayFacade>>();
   for (auto& player : all_players)
@@ -22,9 +22,10 @@ bool FastGameState::doStage() {
   if (is_round_complete) {
     player_idx_ = 0;
     rival_idx_ = 1;
-    ++round;
+    ++round_;
 
-    if (round == game_->GetGameRules()->RoundsCount()) {
+    bool is_game_finished = round_ == game_->GetGameRules()->RoundsCount();
+    if (is_game_finished) {
       auto endGameState = std::make_unique<EndGameState>(game_);
       game_->SwitchGameState(std::move(endGameState));
     }

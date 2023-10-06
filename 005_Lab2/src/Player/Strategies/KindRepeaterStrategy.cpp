@@ -6,10 +6,10 @@ KindRepeaterStrategy::KindRepeaterStrategy() = default;
 KindRepeaterStrategy::~KindRepeaterStrategy() = default;
 
 Decision KindRepeaterStrategy::MakeDecision(PrisonerSimulator::IPlayerStrategyFacade* playerStatus, int rivalId) {
-  auto rivalDecisions = playerStatus->GetRivalDecisionsById(rivalId);
-  if (rivalDecisions.empty())
+  auto rival_decisions = playerStatus->GetRivalDecisionsById(rivalId);
+  if (rival_decisions.empty())
     return Decision::Cooperate;
 
-  return rivalDecisions.back();
+  return rival_decisions.back();
 }
 }

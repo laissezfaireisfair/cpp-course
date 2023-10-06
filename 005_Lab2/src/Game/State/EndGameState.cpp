@@ -2,12 +2,12 @@
 #include "Game/Game.h"
 #include "Game/State/EndGameState.h"
 
-namespace PrisonerSimulator{
+namespace PrisonerSimulator {
 EndGameState::EndGameState(Game* game) : IGameState(game) {}
 
 EndGameState::~EndGameState() noexcept = default;
 
-bool  EndGameState::doStage() {
+bool EndGameState::doStage() {
   std::cout << "Simulation finished." << std::endl;
 
   std::cout << "Scores:" << std::endl;
@@ -18,7 +18,7 @@ bool  EndGameState::doStage() {
 
     std::cout << name << " " << id << ": " << score << std::endl;
   }
-    
+
   return true;
 }
 }

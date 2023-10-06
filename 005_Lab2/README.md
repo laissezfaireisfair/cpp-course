@@ -1,17 +1,19 @@
 # Prisoner simulator
+
 C++20
 
 Arguments example:
-    ```--mode=tournament
-    --steps=10
-    --matrix=matrix.txt
-    KindRepeaterStrategy
-    EvilRepeaterStrategy
-    KindDumbassStrategy
-    EvilDumbassStrategy
-    RandomStrategy
-    KindForgivingRepeaterStrategy
-    InconsistentStrategy```
+
+```--mode=tournament
+--steps=10
+--matrix=matrix.txt
+KindRepeaterStrategy
+EvilRepeaterStrategy
+KindDumbassStrategy
+EvilDumbassStrategy
+RandomStrategy
+KindForgivingRepeaterStrategy
+InconsistentStrategy```
 
 Available modes: `fast`, `detailed`, `tournament`
 
