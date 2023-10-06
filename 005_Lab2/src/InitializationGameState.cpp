@@ -5,6 +5,7 @@
 #include "Configurator.h"
 #include "DetailedGameState.h"
 #include "FastGameState.h"
+#include "TournamentGameState.h"
 
 namespace PrisonerSimulator{
 InitializationGameState::InitializationGameState(Game* game) : IGameState(game) {}
@@ -33,6 +34,11 @@ bool InitializationGameState::doStage() {
 
   else if (configurator.GetModeName() == "fast"){
     auto gameStage = std::make_unique<FastGameState>(game_);
+    game_->SwitchGameState(std::move(gameStage));
+  }
+
+  else if (configurator.GetModeName() == "tournament"){
+    auto gameStage = std::make_unique<TournamentGameState>(game_);
     game_->SwitchGameState(std::move(gameStage));
   }
 
