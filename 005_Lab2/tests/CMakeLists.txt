@@ -8,7 +8,8 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 add_executable(Tests GameCreationTest.cpp
         TestUtils.h
         TestUtils.cpp
-        GameRunTest.cpp)
+        GameRunTest.cpp
+        SimulationResultTest.cpp)
 
 target_link_libraries(Tests 005_Lab2Lib)
 

@@ -2,6 +2,15 @@
 #include "TestUtils.h"
 
 namespace Tests {
+void TestUtils::SetDefaultMatrix() {
+  auto& configurator = PrisonerSimulator::Configurator::Instance();
+
+  configurator.SetCooperationReward(5);
+  configurator.SetCooperationFine(7);
+  configurator.SetDefectReward(7);
+  configurator.SetDefectFine(3);
+}
+
 void TestUtils::SetDefaultTournamentConfiguration(bool add_random) {
   auto& configurator = PrisonerSimulator::Configurator::Instance();
 
@@ -14,16 +23,14 @@ void TestUtils::SetDefaultTournamentConfiguration(bool add_random) {
       "EvilRepeaterStrategy",
       "InconsistentStrategy",
       "KindDumbassStrategy",
-      "KindForgivingRepeaterStrategy",
       "KindRepeaterStrategy"};
-  if (add_random)
+  if (add_random) {
     strategy_names.emplace_back("RandomStrategy");
+    strategy_names.emplace_back("KindForgivingRepeaterStrategy");
+  }
   configurator.SetStrategyNames(std::move(strategy_names));
 
-  configurator.SetCooperationReward(5);
-  configurator.SetCooperationFine(7);
-  configurator.SetDefectFine(7);
-  configurator.SetDefectReward(3);
+  SetDefaultMatrix();
 }
 
 void TestUtils::SetDefaultFastConfiguration() {
@@ -35,14 +42,11 @@ void TestUtils::SetDefaultFastConfiguration() {
 
   auto strategy_names = std::vector<std::string>{
       "EvilRepeaterStrategy",
-      "KindForgivingRepeaterStrategy",
+      "EvilDumbassStrategy",
       "KindRepeaterStrategy"};
   configurator.SetStrategyNames(std::move(strategy_names));
 
-  configurator.SetCooperationReward(5);
-  configurator.SetCooperationFine(7);
-  configurator.SetDefectFine(7);
-  configurator.SetDefectReward(3);
+  SetDefaultMatrix();
 }
 
 void TestUtils::SetDefaultDetailedConfiguration() {
@@ -54,13 +58,10 @@ void TestUtils::SetDefaultDetailedConfiguration() {
 
   auto strategy_names = std::vector<std::string>{
       "EvilRepeaterStrategy",
-      "KindForgivingRepeaterStrategy",
+      "EvilDumbassStrategy",
       "KindRepeaterStrategy"};
   configurator.SetStrategyNames(std::move(strategy_names));
 
-  configurator.SetCooperationReward(5);
-  configurator.SetCooperationFine(7);
-  configurator.SetDefectFine(7);
-  configurator.SetDefectReward(3);
+  SetDefaultMatrix();
 }
 }

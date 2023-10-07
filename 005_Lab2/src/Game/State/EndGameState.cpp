@@ -19,6 +19,8 @@ bool EndGameState::doStage() {
     std::cout << name << " " << id << ": " << score << std::endl;
   }
 
+  std:: cout << std::endl;
+
   return true;
 }
 }
