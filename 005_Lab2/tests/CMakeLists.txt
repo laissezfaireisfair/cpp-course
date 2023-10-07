@@ -5,7 +5,10 @@ add_subdirectory(lib)
 
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-add_executable(Tests GameCreationTest.cpp)
+add_executable(Tests GameCreationTest.cpp
+        TestUtils.h
+        TestUtils.cpp
+        GameRunTest.cpp)
 
 target_link_libraries(Tests 005_Lab2Lib)
 

@@ -14,6 +14,10 @@ class Configurator {
 
   Configurator();
 
+  Configurator(Configurator& other);
+
+  Configurator& operator=(Configurator& other);
+
  public:
   static Configurator& Instance();
 

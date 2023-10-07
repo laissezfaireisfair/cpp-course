@@ -16,6 +16,10 @@ Configurator::Configurator() :
     defect_fine_(7) {
 }
 
+Configurator& Configurator::operator=(Configurator& other) = default;
+
+Configurator::Configurator(Configurator& other) = default;
+
 std::vector<std::string> const& Configurator::GetStrategyNames() const {
   return strategy_names_;
 }
