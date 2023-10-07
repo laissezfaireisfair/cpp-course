@@ -4,9 +4,9 @@
 namespace PrisonerSimulator {
 ProcessGameState::ProcessGameState(PrisonerSimulator::Game* game) :
     IGameState(game),
+    current_rivals_(std::vector<wptr<IPlayerPlayFacade>>()),
     player_idx_(0),
-    rival_idx_(1),
-    current_rivals_(std::vector<wptr<IPlayerPlayFacade>>()) {}
+    rival_idx_(1) {}
 
 void ProcessGameState::RunCompetitionStep() {
   auto player = current_rivals_[player_idx_].lock();

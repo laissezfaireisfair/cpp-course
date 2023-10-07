@@ -12,8 +12,8 @@ Configurator::Configurator() :
     rounds_count_(5),
     cooperation_reward_(5),
     cooperation_fine_(10),
-    defect_fine_(7),
-    defect_reward_(10) {
+    defect_reward_(10),
+    defect_fine_(7) {
 }
 
 std::vector<std::string> const& Configurator::GetStrategyNames() const {

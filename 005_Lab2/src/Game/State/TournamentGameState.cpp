@@ -7,9 +7,9 @@ namespace PrisonerSimulator {
 TournamentGameState::TournamentGameState(Game* game) : ProcessGameState(game), round_(0) {
   auto& all_players = game_->GetPlayers();
 
-  for (int i = 0; i < all_players.size() - 2; ++i) {
-    for (int j = i + 1; j < all_players.size() - 1; ++j) {
-      for (int k = j + 1; k < all_players.size(); ++k) {
+  for (size_t i = 0; i < all_players.size() - 2; ++i) {
+    for (size_t j = i + 1; j < all_players.size() - 1; ++j) {
+      for (size_t k = j + 1; k < all_players.size(); ++k) {
         auto triplet = std::vector<PlayerPtr>{all_players[i], all_players[j], all_players[k]};
         waiting_groups_.push_back(triplet);
       }

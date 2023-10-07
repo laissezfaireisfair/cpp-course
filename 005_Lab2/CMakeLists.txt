@@ -5,8 +5,13 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(include)
 
-add_executable(005_Lab2 src/main.cpp
-        src/Game/GameRules.cpp
+if (MSVC)
+    add_compile_options(/W4)
+else ()
+    add_compile_options(-Wall -Wextra -Wpedantic)
+endif ()
+
+add_library(005_Lab2Lib SHARED src/Game/GameRules.cpp
         src/Player/Player.cpp
         src/Player/PlayerFactory.cpp
         src/Player/Strategies/KindRepeaterStrategy.cpp
@@ -20,15 +25,17 @@ add_executable(005_Lab2 src/main.cpp
         src/Decision.cpp
         src/Game/State/FastGameState.cpp
         src/Game/State/TournamentGameState.cpp
-        include/Player/Strategies/EvilRepeaterStrategy.h
         src/Player/Strategies/EvilRepeaterStrategy.cpp
-        include/Player/Strategies/KindDumbassStrategy.h
         src/Player/Strategies/KindDumbassStrategy.cpp
-        include/Player/Strategies/EvilDumbassStrategy.h
         src/Player/Strategies/EvilDumbassStrategy.cpp
-        include/Player/Strategies/RandomStrategy.h
         src/Player/Strategies/RandomStrategy.cpp
-        include/Player/Strategies/KindForgivingRepeaterStrategy.h
         src/Player/Strategies/KindForgivingRepeaterStrategy.cpp
-        include/Player/Strategies/InconsistentStrategy.h
         src/Player/Strategies/InconsistentStrategy.cpp)
+
+set_target_properties(005_Lab2Lib PROPERTIES LINKER_LANGUAGE CXX)
+
+add_subdirectory(tests)
+
+add_executable(005_Lab2)
+target_sources(005_Lab2 PRIVATE src/main.cpp)
+target_link_libraries(005_Lab2 PRIVATE 005_Lab2Lib)

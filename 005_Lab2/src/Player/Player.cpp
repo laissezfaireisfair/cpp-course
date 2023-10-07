@@ -4,10 +4,10 @@ namespace PrisonerSimulator {
 Player::Player(int id, std::string&& name, uptr<IStrategy>&& strategy) :
     id_(id),
     name_(std::move(name)),
-    score_(0),
     my_decisions_by_rival_id_(),
     rival_decisions_by_id_(),
     last_delta_by_id(),
+    score_(0),
     strategy_(std::move(strategy)) {
 }
 
