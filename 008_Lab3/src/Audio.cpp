@@ -2,10 +2,10 @@
 
 namespace audioConverter {
 Audio::Audio(size_t samples_count) {
-  // TODO: Implement
+  samples_ = std::vector<int16_t>(samples_count, 0);
 }
 
 int16_t& Audio::operator[](size_t position) {
-  // TODO: Implement
+  return samples_[position];
 }
 }

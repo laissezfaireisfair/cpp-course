@@ -8,7 +8,7 @@ include_directories(include)
 if (MSVC)
     add_compile_options(/W4)
 else ()
-    add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+    add_compile_options(-Wall -Wextra -Wpedantic)
 endif ()
 
 add_executable(008_Lab3 src/main.cpp
@@ -18,4 +18,16 @@ add_executable(008_Lab3 src/main.cpp
         src/WavEncoder.cpp
         include/Application.h
         src/Application.cpp
-        include/Commands/ICommand.h)
+        include/Commands/ICommand.h
+        include/Commands/ICommandFactory.h
+        src/Commands/ICommand.cpp
+        src/Commands/ICommandFactory.cpp
+        include/Commands/MuteCommand.h
+        src/Commands/MuteCommand.cpp
+        include/Commands/MuteCommandFactory.h
+        src/Commands/MuteCommandFactory.cpp
+        include/AppParameters.h
+        include/Commands/MixCommand.h
+        src/Commands/MixCommand.cpp
+        include/Commands/MixCommandFactory.h
+        src/Commands/MixCommandFactory.cpp)

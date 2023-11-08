@@ -3,6 +3,9 @@
 #include <vector>
 #include <memory>
 #include "Audio.h"
+#include "Commands/ICommand.h"
+#include "AppParameters.h"
+
 namespace audioConverter {
 class Application {
  public:
