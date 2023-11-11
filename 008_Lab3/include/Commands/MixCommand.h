@@ -5,9 +5,9 @@
 namespace audioConverter {
 class MixCommand : public ICommand {
  public:
-  MixCommand(int mix_after_sec, wptr<Audio> & audio_to_mix_with);
+  MixCommand(int mix_after_sec, wptr<Audio>& audio_to_mix_with);
 
-  void Run(Audio & audio_to_modify) override;
+  void Run(wptr<Audio>& audio_to_modify) override;
 
   ~MixCommand() override;
 

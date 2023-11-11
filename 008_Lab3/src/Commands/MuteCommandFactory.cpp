@@ -1,11 +1,13 @@
 #include <stdexcept>
 #include <charconv>
+
 #include "Commands/MuteCommandFactory.h"
 #include "Commands/MuteCommand.h"
 
 namespace audioConverter {
 
-MuteCommandFactory::MuteCommandFactory(wptr<vec<Audio>>& audio_pool_ref) : ICommandFactory(audio_pool_ref) {
+MuteCommandFactory::MuteCommandFactory(const wptr<IAudioPoolFacade>& audio_pool_facade) : ICommandFactory(
+    audio_pool_facade) {
 }
 
 uptr<ICommand> MuteCommandFactory::CreateCommand(vec<str>& parameters) {

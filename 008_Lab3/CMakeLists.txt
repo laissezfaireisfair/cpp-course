@@ -30,4 +30,10 @@ add_executable(008_Lab3 src/main.cpp
         include/Commands/MixCommand.h
         src/Commands/MixCommand.cpp
         include/Commands/MixCommandFactory.h
-        src/Commands/MixCommandFactory.cpp)
+        src/Commands/MixCommandFactory.cpp
+        include/IAudioPoolFacade.h
+        src/IAudioPoolFacade.cpp
+        include/Commands/InsertCommand.h
+        src/Commands/InsertCommand.cpp
+        include/Commands/InsertCommandFactory.h
+        src/Commands/InsertCommandFactory.cpp)

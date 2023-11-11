@@ -2,10 +2,10 @@
 
 #include "ICommandFactory.h"
 
-namespace audioConverter{
-class MuteCommandFactory : public ICommandFactory{
+namespace audioConverter {
+class MuteCommandFactory : public ICommandFactory {
  public:
-  explicit MuteCommandFactory(wptr<vec<Audio>>& audio_pool_ref);
+  explicit MuteCommandFactory(const wptr<IAudioPoolFacade>& audio_pool_facade);
 
   uptr<ICommand> CreateCommand(vec<str>& parameters) override;
 

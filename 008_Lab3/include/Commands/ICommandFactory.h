@@ -3,22 +3,27 @@
 #include <string>
 #include <vector>
 #include <memory>
+
 #include "ICommand.h"
+#include "IAudioPoolFacade.h"
 
 namespace audioConverter {
 template<class T> using uptr = std::unique_ptr<T>;
+template<class T> using vec = std::vector<T>;
 
 using str = std::string;
 
 class ICommandFactory {
  public:
-  explicit ICommandFactory(wptr<vec<Audio>>& audio_pool_ref);
+  explicit ICommandFactory(const wptr<IAudioPoolFacade>& audio_pool_facade);
 
   virtual uptr<ICommand> CreateCommand(vec<str>& parameters) = 0;
 
   virtual ~ICommandFactory();
 
  protected:
-  wptr<vec<Audio>> audio_pool_ref_;
+  wptr<IAudioPoolFacade> audio_pool_facade_;
+
+  wptr<Audio> GetAudioFromPoolByAlias(str const& alias);
 };
 }

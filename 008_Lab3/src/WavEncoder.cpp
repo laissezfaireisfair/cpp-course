@@ -1,11 +1,11 @@
 #include "WavEncoder.h"
 
 namespace audioConverter {
-Audio WavEncoder::ReadAudio(std::istream& steam) {
+Audio WavEncoder::ReadAudio(std::istream& stream) {
   // TODO: Implement
 }
 
-void WavEncoder::WriteAudio(std::istream& steam, const Audio& audio) {
+void WavEncoder::WriteAudio(std::istream& stream, const Audio& audio) {
   // TODO: Implement
 }
 }
