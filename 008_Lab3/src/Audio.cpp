@@ -14,4 +14,8 @@ int16_t const& Audio::operator[](size_t position) const {
 size_t Audio::SamplesCount() const {
   return samples_.size();
 }
+
+void Audio::Extend(size_t new_size) {
+  samples_.resize(new_size, 0);
+}
 }

@@ -31,7 +31,7 @@ Application::Application(AppParameters& parameters) :
 
 void Application::Run() {
   for (auto& command : commands_)
-    command.Run(audio_to_modify_);
+    command->Run(audio_to_modify_);
 
   ofstream stream(output_file_name);
   WavEncoder::WriteAudio(stream, *audio_to_modify_.lock());
@@ -62,7 +62,7 @@ void Application::ReadCommands(ifstream& config_stream) {
       tokens.push_back(token);
 
     if (factoryByCommandName.contains(tokens[0]))
-      factoryByCommandName[tokens[0]]->CreateCommand(tokens);
+      commands_.push_back(factoryByCommandName[tokens[0]]->CreateCommand(tokens));
     else
       throw std::invalid_argument("Unknown command name");
   }

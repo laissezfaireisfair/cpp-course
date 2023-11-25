@@ -14,9 +14,11 @@ class Audio {
 
   size_t SamplesCount() const;
 
- private:
-  std::vector<int16_t> samples_;
+  void Extend(size_t new_size);
 
   int const kSamples_per_second_ = 44100;
+
+ private:
+  std::vector<int16_t> samples_;
 };
 }

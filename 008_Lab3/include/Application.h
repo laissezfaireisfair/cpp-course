@@ -15,6 +15,7 @@ using std::ifstream;
 
 template<class T> using sptr = std::shared_ptr<T>;
 template<class T> using wptr = std::weak_ptr<T>;
+template<class T> using uptr = std::unique_ptr<T>;
 
 class Application : public IAudioPoolFacade {
  public:
@@ -31,7 +32,7 @@ class Application : public IAudioPoolFacade {
 
   vector<sptr<Audio>> audio_pool_;
 
-  vector<ICommand> commands_;
+  vector<uptr<ICommand>> commands_;
 
   wptr<Audio> audio_to_modify_;
 

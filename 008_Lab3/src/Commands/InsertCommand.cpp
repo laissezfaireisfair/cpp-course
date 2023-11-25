@@ -8,7 +8,18 @@ InsertCommand::InsertCommand(int insert_after_sec, wptr<Audio>& audio_to_insert)
 }
 
 void InsertCommand::Run(wptr<Audio>& audio_to_modify) {
-  // TODO: Implement
+  auto& to_modify = *audio_to_modify.lock();
+  auto& to_insert = *audio_to_insert_.lock();
+
+  size_t insert_after_sample = insert_after_sec_ * to_modify.kSamples_per_second_;
+
+  size_t end_of_new_block = insert_after_sample + to_insert.SamplesCount();
+
+  if (end_of_new_block > to_modify.SamplesCount())
+    to_modify.Extend(end_of_new_block + 1);
+
+  for (size_t i = 0; i < to_insert.SamplesCount(); ++i)
+    to_modify[insert_after_sample + i] = to_insert[i];
 }
 
 InsertCommand::~InsertCommand() = default;
