@@ -10,6 +10,10 @@ class Audio {
 
   int16_t& operator[](size_t position);
 
+  int16_t const& operator[](size_t position) const;
+
+  size_t SamplesCount() const;
+
  private:
   std::vector<int16_t> samples_;
 

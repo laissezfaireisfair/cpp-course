@@ -30,5 +30,11 @@ int main(/*int argc, char* argv[]*/) {
 
   stream.close();
 
+  std::ofstream stream_out("example_out.wav", std::ifstream::out);
+
+  audioConverter::WavEncoder::WriteAudio(stream_out, audio);
+
+  stream_out.close();
+
   return 0;
 }

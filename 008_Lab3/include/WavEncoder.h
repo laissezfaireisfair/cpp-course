@@ -9,6 +9,6 @@ class WavEncoder {
  public:
   static Audio ReadAudio(std::istream& steam);
 
-  static void WriteAudio(std::istream& steam, Audio const& audio);
+  static void WriteAudio(std::ostream& steam, Audio const& audio);
 };
 }

@@ -1,66 +1,75 @@
 #include <iostream>
-#include <cstring>
 
 #include "WavEncoder.h"
 
 namespace audioConverter {
+
 #pragma pack(push, 1)
-struct ChunkInfo {
-  ChunkInfo() :
-      chunk_id_{0, 0, 0, 0},
-      chunk_size_{0} {
-  }
+struct WavHeader {
+  char riff_id[4]{0};
 
-  char chunk_id_[4];
+  int32_t chunk_size{0};
 
-  uint32_t chunk_size_;
+  char format[4]{0};
+
+  char fmt_id[4]{0};
+
+  int32_t fmt_sub_chunk_size{0};
+
+  int16_t audio_format{0};
+
+  int16_t num_channels{0};
+
+  int32_t sample_rate{0};
+
+  int32_t byte_rate{0};
+
+  int16_t block_align{0};
+
+  int16_t bits_per_sample{0};
+
+  char data_id[4]{0};
+
+  int32_t data_sub_chunk_size{0};
 };
 #pragma pack(pop)
 
-struct DataChunk {
-  int16_t* data;
-
-  uint64_t nb_of_samples;
-
-  explicit DataChunk(uint64_t s) :
-      data{new int16_t[s]},
-      nb_of_samples{s} {
-  }
-
-  ~DataChunk() {
-    delete[] data;
-  }
-};
-
 Audio WavEncoder::ReadAudio(std::istream& stream) {
-  constexpr char riff_id[4]{'R', 'I', 'F', 'F'};
-  constexpr char data_id[4]{'d', 'a', 't', 'a'};
-  ChunkInfo chunk_info;
-  while (stream.read((char*) (&chunk_info), sizeof(chunk_info))) {
-    bool is_riff_chunk = memcmp(chunk_info.chunk_id_, riff_id, 4) == 0;
-    if (is_riff_chunk) {
-      const int kRiffBytesToSkip = 4;
-      stream.seekg(kRiffBytesToSkip, std::ios_base::cur);
-      continue;
-    }
+  auto header = WavHeader();
 
-    bool is_data_chunk = memcmp(chunk_info.chunk_id_, data_id, 4) == 0;
-    if (is_data_chunk)
-      break;
-    stream.seekg(chunk_info.chunk_size_, std::ios_base::cur);
-  }
+  stream.read((char*) &header, sizeof(header));
 
-  DataChunk data_chunk(chunk_info.chunk_size_ / sizeof(int16_t));
-  stream.read((char*) data_chunk.data, chunk_info.chunk_size_);
+  size_t samplesCount = header.data_sub_chunk_size / sizeof(int16_t);
+  Audio audio(samplesCount);
 
-  Audio audio(data_chunk.nb_of_samples);
-  for (size_t i = 0; i < data_chunk.nb_of_samples; ++i)
-    audio[i] = data_chunk.data[i];
+  for (size_t i = 0; i < samplesCount; ++i)
+    stream.read((char*) &audio[i], sizeof(audio[i]));
 
   return audio;
 }
 
-void WavEncoder::WriteAudio(std::istream& stream, const Audio& audio) {
-  // TODO: Implement
+void WavEncoder::WriteAudio(std::ostream& stream, const Audio& audio) {
+  auto data_sub_chunk_size = static_cast<int32_t>(audio.SamplesCount() * sizeof(int16_t));
+  int32_t fmt_sub_chunk_size = 16;
+  WavHeader header{
+      .riff_id{'R', 'I', 'F', 'F'},
+      .chunk_size = 20 + data_sub_chunk_size + fmt_sub_chunk_size,
+      .format{'W', 'A', 'V', 'E'},
+      .fmt_id{'f', 'm', 't', ' '},
+      .fmt_sub_chunk_size = fmt_sub_chunk_size,
+      .audio_format = 1,
+      .num_channels = 1,
+      .sample_rate = 44100,
+      .byte_rate = 88200,
+      .block_align = 2,
+      .bits_per_sample = 16,
+      .data_id{'d', 'a', 't', 'a'},
+      .data_sub_chunk_size = data_sub_chunk_size
+  };
+
+  stream.write((char*) &header, sizeof(header));
+
+  for (size_t i = 0; i < audio.SamplesCount(); ++i)
+    stream.write((char*) &audio[i], sizeof(audio[i]));
 }
 }
