@@ -7,9 +7,9 @@ template<class T> using wptr = std::weak_ptr<T>;
 
 class IAudioPoolFacade {
  public:
-  virtual bool IsInPoolRange(size_t index) = 0;
+  virtual bool IsAudioIndexCorrect(size_t index) = 0;
 
-  virtual wptr<Audio> index(size_t index) = 0;
+  virtual wptr<Audio> GetAudioByIndex(size_t index) = 0;
 
   virtual ~IAudioPoolFacade();
 };

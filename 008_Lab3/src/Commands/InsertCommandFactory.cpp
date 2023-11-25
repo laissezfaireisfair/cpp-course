@@ -5,16 +5,16 @@
 
 namespace audioConverter {
 
-InsertCommandFactory::InsertCommandFactory(const wptr<IAudioPoolFacade>& audio_pool_facade) :
+InsertCommandFactory::InsertCommandFactory(IAudioPoolFacade* audio_pool_facade) :
     ICommandFactory(audio_pool_facade) {
 }
 
 uptr<ICommand> InsertCommandFactory::CreateCommand(vec<str>& parameters) {
-  if (parameters.size() != 2)
+  if (parameters.size() != 3)
     throw std::invalid_argument("InsertCommandFactory::CreateCommand(): Two parameters expected");
 
   int insert_after_sec = 0;
-  std::from_chars(parameters[0].data(), parameters[0].data() + parameters[0].size(), insert_after_sec);
+  std::from_chars(parameters[2].data(), parameters[2].data() + parameters[2].size(), insert_after_sec);
 
   wptr<Audio> audio_to_insert = GetAudioFromPoolByAlias(parameters[1]);
 

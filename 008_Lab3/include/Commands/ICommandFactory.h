@@ -15,14 +15,14 @@ using str = std::string;
 
 class ICommandFactory {
  public:
-  explicit ICommandFactory(const wptr<IAudioPoolFacade>& audio_pool_facade);
+  explicit ICommandFactory(IAudioPoolFacade* audio_pool_facade);
 
   virtual uptr<ICommand> CreateCommand(vec<str>& parameters) = 0;
 
   virtual ~ICommandFactory();
 
  protected:
-  wptr<IAudioPoolFacade> audio_pool_facade_;
+  IAudioPoolFacade* audio_pool_facade_;
 
   wptr<Audio> GetAudioFromPoolByAlias(str const& alias);
 };

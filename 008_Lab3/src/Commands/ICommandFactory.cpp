@@ -5,14 +5,14 @@
 
 namespace audioConverter {
 
-ICommandFactory::ICommandFactory(const wptr<IAudioPoolFacade>& audio_pool_facade) {
+ICommandFactory::ICommandFactory(IAudioPoolFacade*audio_pool_facade) {
   audio_pool_facade_ = audio_pool_facade;
 }
 
 ICommandFactory::~ICommandFactory() = default;
 
 wptr<Audio> ICommandFactory::GetAudioFromPoolByAlias(str const& alias) {
-  static std::regex alias_regex(R"( *\??\d *)");
+  static std::regex alias_regex(R"([$]\d)");
   if (!std::regex_match(alias, alias_regex))
     throw std::invalid_argument("Bad audio stream alias");
 
@@ -24,9 +24,9 @@ wptr<Audio> ICommandFactory::GetAudioFromPoolByAlias(str const& alias) {
   int64_t number = 0;
   std::from_chars(number_str.data(), number_str.data() + number_str.size(), number);
 
-  if (number < 0 || !audio_pool_facade_.lock()->IsInPoolRange(size_t(number)))
+  if (number < 0 || !audio_pool_facade_->IsAudioIndexCorrect(size_t(number)))
     throw std::out_of_range("Alias is out of audio stream pool range");
 
-  return audio_pool_facade_.lock()->index(number);
+  return audio_pool_facade_->GetAudioByIndex(number);
 }
 }

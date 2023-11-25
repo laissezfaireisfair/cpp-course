@@ -9,7 +9,12 @@
 #include "AppParameters.h"
 
 namespace audioConverter {
+using std::string;
+using std::vector;
+using std::ifstream;
+
 template<class T> using sptr = std::shared_ptr<T>;
+template<class T> using wptr = std::weak_ptr<T>;
 
 class Application : public IAudioPoolFacade {
  public:
@@ -17,15 +22,21 @@ class Application : public IAudioPoolFacade {
 
   void Run();
 
-  bool IsInPoolRange(size_t index) override;
+  bool IsAudioIndexCorrect(size_t index) override;
 
-  wptr<Audio> index(size_t index) override;
+  wptr<Audio> GetAudioByIndex(size_t index) override;
 
  private:
-  std::vector<sptr<Audio>> audio_pool_;
+  static sptr<Application> _instance;
 
-  std::vector<ICommand> commands_;
+  vector<sptr<Audio>> audio_pool_;
 
-  std::weak_ptr<Audio> audio_to_modify_;
+  vector<ICommand> commands_;
+
+  wptr<Audio> audio_to_modify_;
+
+  string output_file_name;
+
+  void ReadCommands(ifstream& config_stream);
 };
 }
