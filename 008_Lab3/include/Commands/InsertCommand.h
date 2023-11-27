@@ -5,15 +5,15 @@
 namespace audioConverter {
 class InsertCommand : public ICommand {
  public:
-  InsertCommand(int insert_after_sec, wptr<Audio>& audio_to_insert);
+  InsertCommand(int insert_after_sec, std::weak_ptr<Audio>& audio_to_insert);
 
-  void Run(wptr<Audio>& audio_to_modify) override;
+  void Run(std::weak_ptr<Audio>& audio_to_modify) override;
 
   ~InsertCommand() override;
 
  private:
   int insert_after_sec_;
 
-  wptr<Audio> audio_to_insert_;
+  std::weak_ptr<Audio> audio_to_insert_;
 };
 }

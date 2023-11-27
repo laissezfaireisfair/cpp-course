@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Application.h"
-#include "WavEncoder.h"
 
 int main(int argc, char* argv[]) {
   int const min_arguments_count = 3;

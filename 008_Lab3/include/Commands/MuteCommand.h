@@ -7,7 +7,7 @@ class MuteCommand : public ICommand {
  public:
   MuteCommand(int mute_from_sec, int mute_to_sec);
 
-  void Run(wptr<Audio>& audio_to_modify) override;
+  void Run(std::weak_ptr<Audio>& audio_to_modify) override;
 
   ~MuteCommand() override;
 

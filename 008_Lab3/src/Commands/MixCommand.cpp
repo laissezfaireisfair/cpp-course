@@ -2,12 +2,12 @@
 
 namespace audioConverter {
 
-MixCommand::MixCommand(int mix_after_sec, wptr<Audio>& audio_to_mix_with) :
+MixCommand::MixCommand(int mix_after_sec, std::weak_ptr<Audio>& audio_to_mix_with) :
     mix_after_sec_(mix_after_sec),
     audio_to_mix_with_(audio_to_mix_with) {
 }
 
-void MixCommand::Run(wptr<Audio>& audio_to_modify) {
+void MixCommand::Run(std::weak_ptr<Audio>& audio_to_modify) {
   auto& to_modify = *audio_to_modify.lock();
   auto& to_mix = *audio_to_mix_with_.lock();
 

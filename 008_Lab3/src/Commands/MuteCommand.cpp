@@ -7,7 +7,7 @@ MuteCommand::MuteCommand(int mute_from_sec, int mute_to_sec) :
     mute_to_sec_(mute_to_sec) {
 }
 
-void MuteCommand::Run(wptr<Audio>& audio_to_modify) {
+void MuteCommand::Run(std::weak_ptr<Audio>& audio_to_modify) {
   auto& to_modify = *audio_to_modify.lock();
 
   size_t mute_from_sample = mute_from_sec_ * to_modify.kSamples_per_second_;

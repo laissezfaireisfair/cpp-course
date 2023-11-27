@@ -2,12 +2,12 @@
 
 namespace audioConverter {
 
-InsertCommand::InsertCommand(int insert_after_sec, wptr<Audio>& audio_to_insert) :
+InsertCommand::InsertCommand(int insert_after_sec, std::weak_ptr<Audio>& audio_to_insert) :
     insert_after_sec_(insert_after_sec),
     audio_to_insert_(audio_to_insert) {
 }
 
-void InsertCommand::Run(wptr<Audio>& audio_to_modify) {
+void InsertCommand::Run(std::weak_ptr<Audio>& audio_to_modify) {
   auto& to_modify = *audio_to_modify.lock();
   auto& to_insert = *audio_to_insert_.lock();
 

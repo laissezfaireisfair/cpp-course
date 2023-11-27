@@ -10,7 +10,7 @@ MuteCommandFactory::MuteCommandFactory(IAudioPoolFacade* audio_pool_facade) : IC
     audio_pool_facade) {
 }
 
-uptr<ICommand> MuteCommandFactory::CreateCommand(vec<str>& parameters) {
+std::unique_ptr<ICommand> MuteCommandFactory::CreateCommand(std::vector<std::string>& parameters) {
   if (parameters.size() != 3)
     throw std::invalid_argument("MuteCommandFactory::CreateCommand(): Two parameters expected");
 
