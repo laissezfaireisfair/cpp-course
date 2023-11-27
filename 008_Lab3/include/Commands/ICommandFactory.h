@@ -8,11 +8,6 @@
 #include "IAudioPoolFacade.h"
 
 namespace audioConverter {
-
-
-
-
-
 class ICommandFactory {
  public:
   explicit ICommandFactory(IAudioPoolFacade* audio_pool_facade);

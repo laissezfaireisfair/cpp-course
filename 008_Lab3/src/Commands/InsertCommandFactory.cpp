@@ -4,9 +4,8 @@
 #include "Commands/InsertCommand.h"
 
 namespace audioConverter {
-
 InsertCommandFactory::InsertCommandFactory(IAudioPoolFacade* audio_pool_facade) :
-    ICommandFactory(audio_pool_facade) {
+    ICommandFactory{audio_pool_facade} {
 }
 
 std::unique_ptr<ICommand> InsertCommandFactory::CreateCommand(std::vector<std::string>& parameters) {

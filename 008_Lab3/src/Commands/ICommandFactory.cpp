@@ -4,12 +4,9 @@
 #include "Commands/ICommandFactory.h"
 
 namespace audioConverter {
-
-ICommandFactory::ICommandFactory(IAudioPoolFacade*audio_pool_facade) {
-  audio_pool_facade_ = audio_pool_facade;
+ICommandFactory::ICommandFactory(IAudioPoolFacade* audio_pool_facade) :
+    audio_pool_facade_{audio_pool_facade} {
 }
-
-ICommandFactory::~ICommandFactory() = default;
 
 std::weak_ptr<Audio> ICommandFactory::GetAudioFromPoolByAlias(std::string const& alias) {
   static std::regex alias_regex(R"([$]\d)");
@@ -31,4 +28,6 @@ std::weak_ptr<Audio> ICommandFactory::GetAudioFromPoolByAlias(std::string const&
 
   return audio_pool_facade_->GetAudioByIndex(number);
 }
+
+ICommandFactory::~ICommandFactory() = default;
 }

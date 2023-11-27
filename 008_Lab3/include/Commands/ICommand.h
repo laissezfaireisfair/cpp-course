@@ -5,8 +5,6 @@
 #include "Audio.h"
 
 namespace audioConverter {
-
-
 class ICommand {
  public:
   ICommand();

@@ -12,8 +12,7 @@ class MixCommand : public ICommand {
   ~MixCommand() override;
 
  private:
-  int mix_after_sec_;
-
-  std::weak_ptr<Audio> audio_to_mix_with_;
+  class Impl;
+  std::unique_ptr<Impl> pimpl_;
 };
 }

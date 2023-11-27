@@ -12,8 +12,7 @@ class MuteCommand : public ICommand {
   ~MuteCommand() override;
 
  private:
-  int mute_from_sec_;
-
-  int mute_to_sec_;
+  class Impl;
+  std::unique_ptr<Impl> pimpl_;
 };
 }

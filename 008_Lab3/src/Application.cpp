@@ -83,19 +83,19 @@ class Application::Impl : public IAudioPoolFacade {
 };
 
 Application::Application(AppParameters& parameters) :
-    pimpl{std::make_unique<Impl>(parameters)} {
+    pimpl_{std::make_unique<Impl>(parameters)} {
 }
 
 void Application::Run() {
-  pimpl->Run();
+  pimpl_->Run();
 }
 
 bool Application::IsAudioIndexCorrect(size_t index) {
-  return pimpl->IsAudioIndexCorrect(index);
+  return pimpl_->IsAudioIndexCorrect(index);
 }
 
 std::weak_ptr<Audio> Application::GetAudioByIndex(size_t index) {
-  return pimpl->GetAudioByIndex(index);
+  return pimpl_->GetAudioByIndex(index);
 }
 
 Application::~Application() = default;

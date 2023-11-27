@@ -21,6 +21,6 @@ class Application : public IAudioPoolFacade {
 
  private:
   class Impl;
-  std::unique_ptr<Impl> pimpl;
+  std::unique_ptr<Impl> pimpl_;
 };
 }

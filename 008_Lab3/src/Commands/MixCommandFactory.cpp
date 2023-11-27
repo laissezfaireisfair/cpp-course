@@ -4,9 +4,8 @@
 #include "Commands/MixCommand.h"
 
 namespace audioConverter {
-
 MixCommandFactory::MixCommandFactory(IAudioPoolFacade* audio_pool_facade) :
-    ICommandFactory(audio_pool_facade) {
+    ICommandFactory{audio_pool_facade} {
 }
 
 std::unique_ptr<ICommand> MixCommandFactory::CreateCommand(std::vector<std::string>& parameters) {

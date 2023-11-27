@@ -6,8 +6,8 @@
 
 namespace audioConverter {
 
-MuteCommandFactory::MuteCommandFactory(IAudioPoolFacade* audio_pool_facade) : ICommandFactory(
-    audio_pool_facade) {
+MuteCommandFactory::MuteCommandFactory(IAudioPoolFacade* audio_pool_facade) :
+    ICommandFactory{audio_pool_facade} {
 }
 
 std::unique_ptr<ICommand> MuteCommandFactory::CreateCommand(std::vector<std::string>& parameters) {

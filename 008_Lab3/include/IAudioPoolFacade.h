@@ -3,8 +3,6 @@
 #include "Audio.h"
 
 namespace audioConverter {
-
-
 class IAudioPoolFacade {
  public:
   virtual bool IsAudioIndexCorrect(size_t index) = 0;

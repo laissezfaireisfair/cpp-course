@@ -12,8 +12,7 @@ class InsertCommand : public ICommand {
   ~InsertCommand() override;
 
  private:
-  int insert_after_sec_;
-
-  std::weak_ptr<Audio> audio_to_insert_;
+  class Impl;
+  std::unique_ptr<Impl> pimpl_;
 };
 }
