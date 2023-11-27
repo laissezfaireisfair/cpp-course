@@ -33,13 +33,13 @@ struct WavHeader {
 };
 #pragma pack(pop)
 
-shared_ptr<Audio> WavEncoder::ReadAudio(istream& stream) {
+shared_ptr<Audio> WavEncoder::ReadAudio(istream& stream, string const & name) {
   auto header = WavHeader();
 
   stream.read((char*) &header, sizeof(header));
 
   size_t samplesCount = header.data_sub_chunk_size / sizeof(int16_t);
-  auto audio = make_shared<Audio>(samplesCount);
+  auto audio = make_shared<Audio>(name, samplesCount);
 
   for (size_t i = 0; i < samplesCount; ++i)
     stream.read((char*) &audio->operator[](i), sizeof(int16_t));

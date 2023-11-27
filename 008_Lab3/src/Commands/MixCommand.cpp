@@ -1,6 +1,8 @@
 #include "Commands/MixCommand.h"
 
 namespace audioConverter {
+using std::to_string;
+
 class MixCommand::Impl {
  public:
   Impl(int mix_after_sec, weak_ptr<Audio>& audio_to_mix_with) :
@@ -23,6 +25,10 @@ class MixCommand::Impl {
       to_modify[insert_after_sample + i] = int16_t((to_modify[insert_after_sample + i] + to_mix[i]) / 2);
   }
 
+  string Description() const {
+    return "Mix with " + audio_to_mix_with_.lock()->Name() + " after " + to_string(mix_after_sec_) + " seconds";
+  }
+
   ~Impl() = default;
 
  private:
@@ -37,6 +43,10 @@ MixCommand::MixCommand(int mix_after_sec, weak_ptr<Audio>& audio_to_mix_with) :
 
 void MixCommand::Run(weak_ptr<Audio>& audio_to_modify) {
   pimpl_->Run(audio_to_modify);
+}
+
+string MixCommand::Description() {
+  return pimpl_->Description();
 }
 
 MixCommand::~MixCommand() = default;

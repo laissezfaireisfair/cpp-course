@@ -11,6 +11,8 @@ class InsertCommand : public ICommand {
 
   void Run(weak_ptr<Audio>& audio_to_modify) override;
 
+  string Description() override;
+
   ~InsertCommand() override;
 
  private:

@@ -1,3 +1,4 @@
+#include <iostream>
 #include <sstream>
 #include <map>
 
@@ -16,6 +17,9 @@ using std::map;
 using std::make_unique;
 using std::invalid_argument;
 using std::stringstream;
+using std::exception;
+using std::cerr;
+using std::endl;
 
 class Application::Impl : public IAudioPoolFacade {
  public:
@@ -24,24 +28,49 @@ class Application::Impl : public IAudioPoolFacade {
       commands_{},
       output_file_name{parameters.output_file_name} {
     for (auto& input_file_name : parameters.input_file_names) {
-      ifstream stream(input_file_name);
-      audio_pool_.push_back(WavEncoder::ReadAudio(stream));
-      stream.close();
+      try {
+        ifstream stream(input_file_name);
+        audio_pool_.push_back(WavEncoder::ReadAudio(stream, input_file_name));
+        stream.close();
+      }
+      catch (exception& exception) {
+        cerr << "Reading file " << input_file_name << " FAILED: " << endl << exception.what() << endl;
+        throw;
+      }
     }
     audio_to_modify_ = audio_pool_[0];
 
-    ifstream config_stream(parameters.config_file_name);
-    ReadCommands(config_stream);
-    config_stream.close();
+    try {
+      ifstream config_stream(parameters.config_file_name);
+      ReadCommands(config_stream);
+      config_stream.close();
+    }
+    catch (exception& exception) {
+      cerr << "Reading commands from " << parameters.config_file_name << " FAILED: " << endl << exception.what() << endl;
+      throw;
+    }
   }
 
   void Run() {
-    for (auto& command : commands_)
-      command->Run(audio_to_modify_);
+    for (auto& command : commands_) {
+      try {
+        command->Run(audio_to_modify_);
+      }
+      catch (exception& exception){
+        cerr << "Command " << command->Description() << " execution FAILED: " << endl << exception.what() << endl;
+        throw;
+      }
+    }
 
-    ofstream stream(output_file_name);
-    WavEncoder::WriteAudio(stream, *audio_to_modify_.lock());
-    stream.close();
+    try {
+      ofstream stream(output_file_name);
+      WavEncoder::WriteAudio(stream, *audio_to_modify_.lock());
+      stream.close();
+    }
+    catch (exception& exception){
+      cerr << "Writing output file to " << output_file_name << " FAILED: " << endl << exception.what() << endl;
+      throw;
+    }
   }
 
   bool IsAudioIndexCorrect(size_t index) override {

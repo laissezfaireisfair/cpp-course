@@ -11,6 +11,8 @@ class MuteCommand : public ICommand {
 
   void Run(weak_ptr<Audio>& audio_to_modify) override;
 
+  string Description() override;
+
   ~MuteCommand() override;
 
  private:

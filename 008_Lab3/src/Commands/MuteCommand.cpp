@@ -2,6 +2,7 @@
 
 namespace audioConverter {
 using std::make_unique;
+using std::to_string;
 
 class MuteCommand::Impl {
  public:
@@ -19,6 +20,10 @@ class MuteCommand::Impl {
       to_modify[mute_from_sample + i] = 0;
   }
 
+  string Description() const {
+    return "Mute from " + to_string(mute_from_sec_) + " to " + to_string(mute_to_sec_) + " seconds";
+  }
+
   ~Impl() = default;
 
  private:
@@ -33,6 +38,10 @@ MuteCommand::MuteCommand(int mute_from_sec, int mute_to_sec) :
 
 void MuteCommand::Run(weak_ptr<Audio>& audio_to_modify) {
   pimpl_->Run(audio_to_modify);
+}
+
+string MuteCommand::Description() {
+  return pimpl_->Description();
 }
 
 MuteCommand::~MuteCommand() = default;

@@ -23,9 +23,15 @@ int main(int argc, char* argv[]) {
       .input_file_names =   vector<string>(arguments.begin() + 2, arguments.end())
   };
 
-  audioConverter::Application application(parameters);
+  try {
+    audioConverter::Application application(parameters);
 
-  application.Run();
+    application.Run();
+  }
+  catch (...) {
+    cerr << "Critical exception: Abort." << endl;
+    return 1;
+  }
 
   return 0;
 }
