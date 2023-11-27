@@ -37,6 +37,7 @@ class MixCommand::Impl {
   weak_ptr<Audio> audio_to_mix_with_;
 };
 
+
 MixCommand::MixCommand(int mix_after_sec, weak_ptr<Audio>& audio_to_mix_with) :
     pimpl_{make_unique<Impl>(mix_after_sec, audio_to_mix_with)} {
 }

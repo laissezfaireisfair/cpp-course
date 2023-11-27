@@ -33,7 +33,7 @@ struct WavHeader {
 };
 #pragma pack(pop)
 
-shared_ptr<Audio> WavEncoder::ReadAudio(istream& stream, string const & name) {
+shared_ptr<Audio> WavEncoder::ReadAudio(istream& stream, string const& name) {
   auto header = WavHeader();
 
   stream.read((char*) &header, sizeof(header));

@@ -32,6 +32,7 @@ class MuteCommand::Impl {
   int mute_to_sec_;
 };
 
+
 MuteCommand::MuteCommand(int mute_from_sec, int mute_to_sec) :
     pimpl_{make_unique<Impl>(mute_from_sec, mute_to_sec)} {
 }

@@ -24,7 +24,7 @@ class InsertCommand::Impl {
     for (size_t i = 0; i < to_insert.SamplesCount(); ++i)
       to_modify[insert_after_sample + i] = to_insert[i];
   }
-  
+
   string Description() const {
     return "Insert " + audio_to_insert_.lock()->Name() + " after " + to_string(insert_after_sec_) + " seconds";
   }
@@ -36,6 +36,7 @@ class InsertCommand::Impl {
 
   weak_ptr<Audio> audio_to_insert_;
 };
+
 
 InsertCommand::InsertCommand(int insert_after_sec, weak_ptr<Audio>& audio_to_insert) :
     pimpl_{make_unique<Impl>(insert_after_sec, audio_to_insert)} {

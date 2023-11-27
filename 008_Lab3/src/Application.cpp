@@ -27,7 +27,23 @@ class Application::Impl : public IAudioPoolFacade {
       audio_pool_{},
       commands_{},
       output_file_name{parameters.output_file_name} {
-    for (auto& input_file_name : parameters.input_file_names) {
+
+    ReadFiles(parameters.input_file_names);
+
+    try {
+      ifstream config_stream(parameters.config_file_name);
+      ReadCommands(config_stream);
+      config_stream.close();
+    }
+    catch (exception& exception) {
+      cerr << "Reading commands from " << parameters.config_file_name << " FAILED: " << endl << exception.what()
+           << endl;
+      throw;
+    }
+  }
+
+  void ReadFiles(vector<string>& names) {
+    for (auto& input_file_name : names) {
       try {
         ifstream stream(input_file_name);
         audio_pool_.push_back(WavEncoder::ReadAudio(stream, input_file_name));
@@ -39,16 +55,6 @@ class Application::Impl : public IAudioPoolFacade {
       }
     }
     audio_to_modify_ = audio_pool_[0];
-
-    try {
-      ifstream config_stream(parameters.config_file_name);
-      ReadCommands(config_stream);
-      config_stream.close();
-    }
-    catch (exception& exception) {
-      cerr << "Reading commands from " << parameters.config_file_name << " FAILED: " << endl << exception.what() << endl;
-      throw;
-    }
   }
 
   void Run() {
@@ -56,7 +62,7 @@ class Application::Impl : public IAudioPoolFacade {
       try {
         command->Run(audio_to_modify_);
       }
-      catch (exception& exception){
+      catch (exception& exception) {
         cerr << "Command " << command->Description() << " execution FAILED: " << endl << exception.what() << endl;
         throw;
       }
@@ -67,7 +73,7 @@ class Application::Impl : public IAudioPoolFacade {
       WavEncoder::WriteAudio(stream, *audio_to_modify_.lock());
       stream.close();
     }
-    catch (exception& exception){
+    catch (exception& exception) {
       cerr << "Writing output file to " << output_file_name << " FAILED: " << endl << exception.what() << endl;
       throw;
     }
@@ -118,6 +124,7 @@ class Application::Impl : public IAudioPoolFacade {
     return tokens;
   }
 };
+
 
 Application::Application(AppParameters& parameters) :
     pimpl_{make_unique<Impl>(parameters)} {

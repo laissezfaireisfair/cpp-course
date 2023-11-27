@@ -12,7 +12,7 @@ using std::ostream;
 
 class WavEncoder {
  public:
-  static shared_ptr<Audio> ReadAudio(istream& steam, string const & name);
+  static shared_ptr<Audio> ReadAudio(istream& steam, string const& name);
 
   static void WriteAudio(ostream& steam, Audio const& audio);
 };

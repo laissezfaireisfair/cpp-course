@@ -40,6 +40,7 @@ class Audio::Impl {
   vector<int16_t> samples_;
 };
 
+
 Audio::Audio(const string& name, size_t samples_count) :
     pimpl_{make_unique<Impl>(name, samples_count)} {
 }
