@@ -3,16 +3,17 @@
 #include "ICommand.h"
 
 namespace audioConverter {
+using std::unique_ptr;
 class MixCommand : public ICommand {
  public:
-  MixCommand(int mix_after_sec, std::weak_ptr<Audio>& audio_to_mix_with);
+  MixCommand(int mix_after_sec, weak_ptr<Audio>& audio_to_mix_with);
 
-  void Run(std::weak_ptr<Audio>& audio_to_modify) override;
+  void Run(weak_ptr<Audio>& audio_to_modify) override;
 
   ~MixCommand() override;
 
  private:
   class Impl;
-  std::unique_ptr<Impl> pimpl_;
+  unique_ptr<Impl> pimpl_;
 };
 }

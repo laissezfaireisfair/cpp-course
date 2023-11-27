@@ -37,4 +37,5 @@ add_executable(008_Lab3 src/main.cpp
         src/Commands/InsertCommand.cpp
         include/Commands/InsertCommandFactory.h
         src/Commands/InsertCommandFactory.cpp
-        src/IAudioPoolFacade.cpp)
+        src/IAudioPoolFacade.cpp
+)

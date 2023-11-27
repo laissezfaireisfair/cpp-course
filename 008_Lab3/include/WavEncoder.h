@@ -6,10 +6,14 @@
 #include "Audio.h"
 
 namespace audioConverter {
+using std::shared_ptr;
+using std::istream;
+using std::ostream;
+
 class WavEncoder {
  public:
-  static std::shared_ptr<Audio> ReadAudio(std::istream& steam);
+  static shared_ptr<Audio> ReadAudio(istream& steam);
 
-  static void WriteAudio(std::ostream& steam, Audio const& audio);
+  static void WriteAudio(ostream& steam, Audio const& audio);
 };
 }

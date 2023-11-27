@@ -8,17 +8,21 @@
 #include "IAudioPoolFacade.h"
 
 namespace audioConverter {
+using std::unique_ptr;
+using std::vector;
+using std::string;
+
 class ICommandFactory {
  public:
   explicit ICommandFactory(IAudioPoolFacade* audio_pool_facade);
 
-  virtual std::unique_ptr<ICommand> CreateCommand(std::vector<std::string>& parameters) = 0;
+  virtual unique_ptr<ICommand> CreateCommand(vector<string>& parameters) = 0;
 
   virtual ~ICommandFactory();
 
  protected:
   IAudioPoolFacade* audio_pool_facade_;
 
-  std::weak_ptr<Audio> GetAudioFromPoolByAlias(std::string const& alias);
+  weak_ptr<Audio> GetAudioFromPoolByAlias(string const& alias);
 };
 }

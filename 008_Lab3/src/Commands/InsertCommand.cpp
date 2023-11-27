@@ -3,12 +3,12 @@
 namespace audioConverter {
 class InsertCommand::Impl {
  public:
-  Impl(int insert_after_sec, std::weak_ptr<Audio>& audio_to_insert) :
+  Impl(int insert_after_sec, weak_ptr<Audio>& audio_to_insert) :
       insert_after_sec_{insert_after_sec},
       audio_to_insert_{audio_to_insert} {
   }
 
-  void Run(std::weak_ptr<Audio>& audio_to_modify) {
+  void Run(weak_ptr<Audio>& audio_to_modify) {
     auto& to_modify = *audio_to_modify.lock();
     auto& to_insert = *audio_to_insert_.lock();
 
@@ -28,14 +28,14 @@ class InsertCommand::Impl {
  private:
   int insert_after_sec_;
 
-  std::weak_ptr<Audio> audio_to_insert_;
+  weak_ptr<Audio> audio_to_insert_;
 };
 
-InsertCommand::InsertCommand(int insert_after_sec, std::weak_ptr<Audio>& audio_to_insert) :
-    pimpl_{std::make_unique<Impl>(insert_after_sec, audio_to_insert)} {
+InsertCommand::InsertCommand(int insert_after_sec, weak_ptr<Audio>& audio_to_insert) :
+    pimpl_{make_unique<Impl>(insert_after_sec, audio_to_insert)} {
 }
 
-void InsertCommand::Run(std::weak_ptr<Audio>& audio_to_modify) {
+void InsertCommand::Run(weak_ptr<Audio>& audio_to_modify) {
   pimpl_->Run(audio_to_modify);
 }
 

@@ -7,6 +7,8 @@
 #include "AppParameters.h"
 
 namespace audioConverter {
+using std::unique_ptr;
+
 class Application : public IAudioPoolFacade {
  public:
   explicit Application(AppParameters& parameters);
@@ -15,12 +17,12 @@ class Application : public IAudioPoolFacade {
 
   bool IsAudioIndexCorrect(size_t index) override;
 
-  std::weak_ptr<Audio> GetAudioByIndex(size_t index) override;
+  weak_ptr<Audio> GetAudioByIndex(size_t index) override;
 
   ~Application() override;
 
  private:
   class Impl;
-  std::unique_ptr<Impl> pimpl_;
+  unique_ptr<Impl> pimpl_;
 };
 }

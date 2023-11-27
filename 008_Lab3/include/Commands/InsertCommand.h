@@ -3,16 +3,18 @@
 #include "ICommand.h"
 
 namespace audioConverter {
+using std::unique_ptr;
+
 class InsertCommand : public ICommand {
  public:
-  InsertCommand(int insert_after_sec, std::weak_ptr<Audio>& audio_to_insert);
+  InsertCommand(int insert_after_sec, weak_ptr<Audio>& audio_to_insert);
 
-  void Run(std::weak_ptr<Audio>& audio_to_modify) override;
+  void Run(weak_ptr<Audio>& audio_to_modify) override;
 
   ~InsertCommand() override;
 
  private:
   class Impl;
-  std::unique_ptr<Impl> pimpl_;
+  unique_ptr<Impl> pimpl_;
 };
 }

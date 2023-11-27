@@ -4,6 +4,8 @@
 #include <cstdint>
 
 namespace audioConverter {
+using std::vector;
+
 class Audio {
  public:
   explicit Audio(size_t samples_count);
@@ -19,6 +21,6 @@ class Audio {
   int const kSamples_per_second_ = 44100;
 
  private:
-  std::vector<int16_t> samples_;
+  vector<int16_t> samples_;
 };
 }

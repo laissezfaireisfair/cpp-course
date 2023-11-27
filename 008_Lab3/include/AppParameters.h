@@ -4,11 +4,14 @@
 #include <vector>
 
 namespace audioConverter {
+using std::string;
+using std::vector;
+
 struct AppParameters {
-  std::string output_file_name;
+  string output_file_name;
 
-  std::string config_file_name;
+  string config_file_name;
 
-  std::vector<std::string> input_file_names;
+  vector<string> input_file_names;
 };
 }

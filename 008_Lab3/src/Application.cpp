@@ -9,6 +9,14 @@
 #include "Commands/InsertCommandFactory.h"
 
 namespace audioConverter {
+using std::ifstream;
+using std::ofstream;
+using std::out_of_range;
+using std::map;
+using std::make_unique;
+using std::invalid_argument;
+using std::stringstream;
+
 class Application::Impl : public IAudioPoolFacade {
  public:
   explicit Impl(AppParameters& parameters) :
@@ -16,13 +24,13 @@ class Application::Impl : public IAudioPoolFacade {
       commands_{},
       output_file_name{parameters.output_file_name} {
     for (auto& input_file_name : parameters.input_file_names) {
-      std::ifstream stream(input_file_name);
+      ifstream stream(input_file_name);
       audio_pool_.push_back(WavEncoder::ReadAudio(stream));
       stream.close();
     }
     audio_to_modify_ = audio_pool_[0];
 
-    std::ifstream config_stream(parameters.config_file_name);
+    ifstream config_stream(parameters.config_file_name);
     ReadCommands(config_stream);
     config_stream.close();
   }
@@ -31,7 +39,7 @@ class Application::Impl : public IAudioPoolFacade {
     for (auto& command : commands_)
       command->Run(audio_to_modify_);
 
-    std::ofstream stream(output_file_name);
+    ofstream stream(output_file_name);
     WavEncoder::WriteAudio(stream, *audio_to_modify_.lock());
     stream.close();
   }
@@ -40,50 +48,50 @@ class Application::Impl : public IAudioPoolFacade {
     return index < audio_pool_.size();
   }
 
-  std::weak_ptr<Audio> GetAudioByIndex(size_t index) override {
+  weak_ptr<Audio> GetAudioByIndex(size_t index) override {
     if (!IsAudioIndexCorrect(index))
-      throw std::out_of_range("Index is out of audio pool range");
+      throw out_of_range("Index is out of audio pool range");
 
     return audio_pool_[index];
   }
 
   ~Impl() override = default;
  private:
-  std::vector<std::shared_ptr<Audio>> audio_pool_;
+  vector<shared_ptr<Audio>> audio_pool_;
 
-  std::vector<std::unique_ptr<ICommand>> commands_;
+  vector<unique_ptr<ICommand>> commands_;
 
-  std::weak_ptr<Audio> audio_to_modify_;
+  weak_ptr<Audio> audio_to_modify_;
 
-  std::string output_file_name;
+  string output_file_name;
 
-  void ReadCommands(std::ifstream& config_stream) {
-    std::map<std::string, std::unique_ptr<ICommandFactory>> factoryByCommandName;
-    factoryByCommandName["mute"] = std::make_unique<MuteCommandFactory>(this);
-    factoryByCommandName["mix"] = std::make_unique<MixCommandFactory>(this);
-    factoryByCommandName["insert"] = std::make_unique<InsertCommandFactory>(this);
+  void ReadCommands(ifstream& config_stream) {
+    map<string, unique_ptr<ICommandFactory>> factoryByCommandName;
+    factoryByCommandName["mute"] = make_unique<MuteCommandFactory>(this);
+    factoryByCommandName["mix"] = make_unique<MixCommandFactory>(this);
+    factoryByCommandName["insert"] = make_unique<InsertCommandFactory>(this);
 
-    for (std::string line; getline(config_stream, line);) {
+    for (string line; getline(config_stream, line);) {
       auto tokens = Split(line);
 
       if (factoryByCommandName.contains(tokens[0]))
         commands_.push_back(factoryByCommandName[tokens[0]]->CreateCommand(tokens));
       else
-        throw std::invalid_argument("Unknown command name");
+        throw invalid_argument("Unknown command name");
     }
   }
 
-  static std::vector<std::string> Split(std::string const& line) {
-    std::stringstream line_stream(line);
-    std::vector<std::string> tokens;
-    for (std::string token; line_stream >> token;)
+  static vector<string> Split(string const& line) {
+    stringstream line_stream(line);
+    vector<string> tokens;
+    for (string token; line_stream >> token;)
       tokens.push_back(token);
     return tokens;
   }
 };
 
 Application::Application(AppParameters& parameters) :
-    pimpl_{std::make_unique<Impl>(parameters)} {
+    pimpl_{make_unique<Impl>(parameters)} {
 }
 
 void Application::Run() {
@@ -94,7 +102,7 @@ bool Application::IsAudioIndexCorrect(size_t index) {
   return pimpl_->IsAudioIndexCorrect(index);
 }
 
-std::weak_ptr<Audio> Application::GetAudioByIndex(size_t index) {
+weak_ptr<Audio> Application::GetAudioByIndex(size_t index) {
   return pimpl_->GetAudioByIndex(index);
 }
 

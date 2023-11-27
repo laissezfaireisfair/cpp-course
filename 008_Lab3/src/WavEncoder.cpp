@@ -1,8 +1,7 @@
-#include <iostream>
-
 #include "WavEncoder.h"
 
 namespace audioConverter {
+using std::make_shared;
 
 #pragma pack(push, 1)
 struct WavHeader {
@@ -34,21 +33,21 @@ struct WavHeader {
 };
 #pragma pack(pop)
 
-std::shared_ptr<Audio> WavEncoder::ReadAudio(std::istream& stream) {
+shared_ptr<Audio> WavEncoder::ReadAudio(istream& stream) {
   auto header = WavHeader();
 
   stream.read((char*) &header, sizeof(header));
 
   size_t samplesCount = header.data_sub_chunk_size / sizeof(int16_t);
-  auto audio = std::make_shared<Audio>(samplesCount);
+  auto audio = make_shared<Audio>(samplesCount);
 
   for (size_t i = 0; i < samplesCount; ++i)
-    stream.read((char*) & audio->operator[](i), sizeof(int16_t));
+    stream.read((char*) &audio->operator[](i), sizeof(int16_t));
 
   return audio;
 }
 
-void WavEncoder::WriteAudio(std::ostream& stream, const Audio& audio) {
+void WavEncoder::WriteAudio(ostream& stream, const Audio& audio) {
   auto data_sub_chunk_size = static_cast<int32_t>(audio.SamplesCount() * sizeof(int16_t));
   int32_t fmt_sub_chunk_size = 16;
   WavHeader header{

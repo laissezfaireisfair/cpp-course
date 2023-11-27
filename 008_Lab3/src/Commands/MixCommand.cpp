@@ -1,14 +1,14 @@
 #include "Commands/MixCommand.h"
 
 namespace audioConverter {
-class MixCommand::Impl{
+class MixCommand::Impl {
  public:
-  Impl(int mix_after_sec, std::weak_ptr<Audio>& audio_to_mix_with) :
+  Impl(int mix_after_sec, weak_ptr<Audio>& audio_to_mix_with) :
       mix_after_sec_{mix_after_sec},
-      audio_to_mix_with_{audio_to_mix_with}{
+      audio_to_mix_with_{audio_to_mix_with} {
   }
 
-  void Run(std::weak_ptr<Audio>& audio_to_modify){
+  void Run(weak_ptr<Audio>& audio_to_modify) {
     auto& to_modify = *audio_to_modify.lock();
     auto& to_mix = *audio_to_mix_with_.lock();
 
@@ -28,14 +28,14 @@ class MixCommand::Impl{
  private:
   int mix_after_sec_;
 
-  std::weak_ptr<Audio> audio_to_mix_with_;
+  weak_ptr<Audio> audio_to_mix_with_;
 };
 
-MixCommand::MixCommand(int mix_after_sec, std::weak_ptr<Audio>& audio_to_mix_with):
-  pimpl_{std::make_unique<Impl>(mix_after_sec, audio_to_mix_with)}{
+MixCommand::MixCommand(int mix_after_sec, weak_ptr<Audio>& audio_to_mix_with) :
+    pimpl_{make_unique<Impl>(mix_after_sec, audio_to_mix_with)} {
 }
 
-void MixCommand::Run(std::weak_ptr<Audio>& audio_to_modify) {
+void MixCommand::Run(weak_ptr<Audio>& audio_to_modify) {
   pimpl_->Run(audio_to_modify);
 }
 
