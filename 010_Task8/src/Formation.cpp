@@ -1,11 +1,11 @@
-#include <map>
+#include <unordered_map>
 #include <algorithm>
 
 #include "Formation.h"
 
 namespace task8 {
 using std::make_unique;
-using std::map;
+using std::unordered_map;
 using std::reverse;
 
 class Formation::Impl {
@@ -52,7 +52,7 @@ class Formation::Impl {
 
   bool is_empty_;
 
-  map<int, int> previous_;
+  unordered_map<int, int> previous_;
 
   int const kTerminator = INT_MAX;
 };
