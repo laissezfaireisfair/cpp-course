@@ -1,7 +1,25 @@
-all: main.out
+COMPILER = g++
+COMPILER_FLAG = -std=c++20 -fmodules-ts
 
-run: main.out
+default: all
+
+run: all
 	./main.out
 
-main.out: main.cpp module1.cpp module2.cpp
-	g++ -fmodules-ts module1.cpp module2.cpp main.cpp -o main.out -x c++-system-header iostream string
+all: main.out
+
+main.out:  module1.o module2.o main.o
+	${COMPILER} $^ -o main.out
+
+%.o: %.cpp gcm.cache
+	${COMPILER} -c  ${COMPILER_FLAG} $<
+
+gcm.cache:
+	${COMPILER} -c  ${COMPILER_FLAG} -x c++-system-header iostream string
+
+clean:
+	@-rm main.out
+	@-rm module1.o
+	@-rm module2.o
+	@-rm main.o
+	@-rm -r gcm.cache
